@@ -23,12 +23,28 @@ public class NoteService : INoteService
     {
         throw new System.NotImplementedException();
     }
-
+    
+    /// <summary>
+    /// Identifies and returns a list of tags that match the content or title of the given note.
+    /// </summary>
+    /// <param name="note">The note object containing the content and title to analyze.</param>
+    /// <returns>
+    /// An array of strings representing the names of tags that match keywords found in the note's content or title.
+    /// </returns>
+    /// <exception cref="ArgumentException">
+    /// Thrown when the note, its content, or its title is null, empty, or contains only whitespace.
+    /// </exception>
+    /// <remarks>
+    /// This method performs a case-insensitive search to match keywords associated with tags
+    /// against the content and title of the provided note. Tags and their keywords are fetched from
+    /// the tag repository.
+    /// </remarks>
     public string[] Tag(Note note)
     {
-        if (string.IsNullOrWhiteSpace(note.Content))
+        // Validate the note's content and title
+        if (string.IsNullOrWhiteSpace(note.Title) && string.IsNullOrWhiteSpace(note.Content))
         {
-            throw new ArgumentException("Note or note content cannot be null or empty.");
+            throw new ArgumentException("Note title and content cannot be null, empty, or whitespace.");
         }
 
         // Fetch all available tags from the repository
@@ -37,14 +53,14 @@ public class NoteService : INoteService
         // Create a set to store matched tags
         var matchedTags = new HashSet<string>();
 
-        // Lowercase the note content for case-insensitive matching
-        var content = note.Content.ToLower();
+        // Combine title and content for case-insensitive matching (flipped order)
+        var searchableText = $"{note.Title} {note.Content}".ToLower();
 
         // Iterate through each tag in the repository
         foreach (var tag in tags)
         {
-            // Check if any of the tag's keywords match the note content
-            if (tag.Keywords.Any(keyword => content.Contains(keyword.ToLower())))
+            // Check if any of the tag's keywords match the combined text
+            if (tag.Keywords.Any(keyword => searchableText.Contains(keyword.ToLower())))
             {
                 matchedTags.Add(tag.Name);
             }
@@ -53,7 +69,6 @@ public class NoteService : INoteService
         // Return the matched tags as an array
         return matchedTags.ToArray();
     }
-
 
     public Note Update(Note note)
     {
