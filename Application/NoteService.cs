@@ -1,4 +1,3 @@
-using Application.DTOs;
 using Application.Interface;
 using Domain;
 using Domain.Interfaces;
@@ -10,36 +9,35 @@ public class NoteService : INoteService
     private readonly INoteRepository _noteRepository;
     private readonly ITagRepository _tagRepository;
     
-    public Note Create(PostNoteDTO note)
+    // When the user presses the "New Note" button, the Create method is called, an empty note is created, and the note is returned.
+    public Note Create()
     {
-        // Validate the note's title and content
+        return _noteRepository.Create(new Note());
+    }
+    
+    // When the user presses the "Save" button, the Update method is called, the note and it's tags are updated, and the note is returned.
+    public Note Update(Note note)
+    {
+        // Validate the note's content and title
         if (string.IsNullOrWhiteSpace(note.Title) && string.IsNullOrWhiteSpace(note.Content))
         {
             throw new ArgumentException("Note title and content cannot be null, empty, or whitespace.");
         }
-
-        // Create a new note object
-        var newNote = new Note
-        {
-            Title = note.Title,
-            Content = note.Content,
-        };
         
-        // Identify tags that match the note's content and title
-        newNote.Tags = Tag(newNote);
-
-        // Save the note to the repository
-        return _noteRepository.Create(newNote);
+        // Update the tags associated with the note
+        note.Tags = Tag(note);
+        
+        return _noteRepository.Update(note);
     }
 
     public void Delete(Guid id)
     {
-        throw new System.NotImplementedException();
+        _noteRepository.Delete(id);
     }
 
     public Note Get(Guid id)
     {
-        throw new System.NotImplementedException();
+        return _noteRepository.Get(id);
     }
     
     /// <summary>
@@ -86,10 +84,5 @@ public class NoteService : INoteService
 
         // Return the matched tags as an array
         return matchedTags.ToArray();
-    }
-
-    public Note Update(Note note)
-    {
-        throw new System.NotImplementedException();
     }
 }
