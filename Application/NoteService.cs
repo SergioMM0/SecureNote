@@ -1,3 +1,4 @@
+using Application.DTOs;
 using Application.Interface;
 using Domain;
 using Domain.Interfaces;
@@ -9,9 +10,26 @@ public class NoteService : INoteService
     private readonly INoteRepository _noteRepository;
     private readonly ITagRepository _tagRepository;
     
-    public Note Create()
+    public Note Create(PostNoteDTO note)
     {
-        throw new System.NotImplementedException();
+        // Validate the note's title and content
+        if (string.IsNullOrWhiteSpace(note.Title) && string.IsNullOrWhiteSpace(note.Content))
+        {
+            throw new ArgumentException("Note title and content cannot be null, empty, or whitespace.");
+        }
+
+        // Create a new note object
+        var newNote = new Note
+        {
+            Title = note.Title,
+            Content = note.Content,
+        };
+        
+        // Identify tags that match the note's content and title
+        newNote.Tags = Tag(newNote);
+
+        // Save the note to the repository
+        return _noteRepository.Create(newNote);
     }
 
     public void Delete(Guid id)
