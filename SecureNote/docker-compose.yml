@@ -1,0 +1,8 @@
+﻿services:
+  api:
+    image: api
+    build:
+      context: .
+      dockerfile: API/Dockerfile
+      
+#TODO: Create an actual docker compose file that will run the api and the database
