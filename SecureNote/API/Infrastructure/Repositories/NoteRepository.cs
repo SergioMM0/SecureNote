@@ -1,5 +1,5 @@
-﻿namespace API.Infrastructure.Repositories {
-    public class NoteRepository {
-        
-    }
+﻿namespace API.Infrastructure.Repositories;
+
+public class NoteRepository {
+
 }

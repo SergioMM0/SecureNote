@@ -4,42 +4,36 @@ using Domain;
 
 namespace API.Application.Services;
 
-public class NoteService : INoteService
-{
+public class NoteService : INoteService {
     private readonly INoteRepository _noteRepository;
     private readonly ITagRepository _tagRepository;
-    
+
     // When the user presses the "New Note" button, the Create method is called, an empty note is created, and the note is returned.
-    public Note Create()
-    {
+    public Note Create() {
         return _noteRepository.Create(new Note());
     }
-    
+
     // When the user presses the "Save" button, the Update method is called, the note and it's tags are updated, and the note is returned.
-    public Note Update(Note note)
-    {
+    public Note Update(Note note) {
         // Validate the note's content and title
-        if (string.IsNullOrWhiteSpace(note.Title) && string.IsNullOrWhiteSpace(note.Content))
-        {
+        if (string.IsNullOrWhiteSpace(note.Title) && string.IsNullOrWhiteSpace(note.Content)) {
             throw new ArgumentException("Note title and content cannot be null, empty, or whitespace.");
         }
-        
+
         // Update the tags associated with the note
         note.Tags = Tag(note);
-        
+
         return _noteRepository.Update(note);
     }
 
-    public void Delete(Guid id)
-    {
+    public void Delete(Guid id) {
         _noteRepository.Delete(id);
     }
 
-    public Note Get(Guid id)
-    {
+    public Note Get(Guid id) {
         return _noteRepository.Get(id);
     }
-    
+
     /// <summary>
     /// Identifies and returns a list of tags that match the content or title of the given note.
     /// </summary>
@@ -55,11 +49,9 @@ public class NoteService : INoteService
     /// against the content and title of the provided note. Tags and their keywords are fetched from
     /// the tag repository.
     /// </remarks>
-    public string[] Tag(Note note)
-    {
+    public string[] Tag(Note note) {
         // Validate the note's content and title
-        if (string.IsNullOrWhiteSpace(note.Title) && string.IsNullOrWhiteSpace(note.Content))
-        {
+        if (string.IsNullOrWhiteSpace(note.Title) && string.IsNullOrWhiteSpace(note.Content)) {
             throw new ArgumentException("Note title and content cannot be null, empty, or whitespace.");
         }
 
@@ -73,11 +65,9 @@ public class NoteService : INoteService
         var searchableText = $"{note.Title} {note.Content}".ToLower();
 
         // Iterate through each tag in the repository
-        foreach (var tag in tags)
-        {
+        foreach (var tag in tags) {
             // Check if any of the tag's keywords match the combined text
-            if (tag.Keywords.Any(keyword => searchableText.Contains(keyword.ToLower())))
-            {
+            if (tag.Keywords.Any(keyword => searchableText.Contains(keyword.ToLower()))) {
                 matchedTags.Add(tag.Name);
             }
         }

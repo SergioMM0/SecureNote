@@ -1,5 +1,5 @@
-﻿namespace API.Infrastructure.Repositories {
-    public class TagRepository {
+﻿namespace API.Infrastructure.Repositories;
+
+public class TagRepository {
         
-    }
 }
