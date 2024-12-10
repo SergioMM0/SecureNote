@@ -1,5 +1,11 @@
-﻿namespace API.Infrastructure.Repositories;
+﻿using API.Application.Interfaces.Repositories;
+using Domain;
 
-public class TagRepository {
-        
+namespace API.Infrastructure.Repositories;
+
+public class TagRepository : ITagRepository {
+
+    public IEnumerable<Tag> GetAll() {
+        throw new NotImplementedException();
+    }
 }
