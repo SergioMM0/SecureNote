@@ -1,7 +1,8 @@
-namespace Domain.Interfaces;
+﻿using Domain;
 
-public interface INoteService
-{
+namespace API.Core.Interfaces;
+
+public interface INoteService {
     public Note Create();
     public Note Get(Guid id);
     public Note Update(Note note);

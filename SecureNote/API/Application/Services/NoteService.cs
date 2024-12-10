@@ -1,8 +1,8 @@
-using Application.Interface;
+﻿using API.Application.Interfaces;
+using API.Core.Interfaces;
 using Domain;
-using Domain.Interfaces;
 
-namespace Application;
+namespace API.Application.Services;
 
 public class NoteService : INoteService
 {
