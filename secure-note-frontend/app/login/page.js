@@ -1,9 +1,16 @@
 // pages/login.js
 import React from "react";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function Login() {
     return (
-        <div className="min-h-screen bg-base-200 flex justify-center items-center">
+        <div className="min-h-screen bg-base-200 flex flex-col justify-center items-center">
+            <Link href="/" className="btn btn-ghost normal-case text-xl mb-[1rem]">
+                <Image src="/logo.png" alt="SecureNote" width={32} height={32}/>
+                <span>SecureNote</span>
+            </Link>
+
             <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
                 <h2 className="text-2xl font-semibold text-center text-primary">Login</h2>
 
@@ -44,7 +51,7 @@ export default function Login() {
 
                 <div className="text-center mt-4">
                     <p className="text-sm">
-                        <span>Don't have an account?</span> <a href="/register" className="text-link hover:text-link-focus">Sign up</a>
+                        <span>Don't have an account?</span> <a href="/register" className="text-link link-primary hover:text-link-focus">Register</a>
                     </p>
                 </div>
             </div>

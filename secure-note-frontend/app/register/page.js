@@ -1,11 +1,17 @@
 // pages/register.js
 import React from "react";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function Register() {
     return (
-        <div className="min-h-screen bg-base-200 flex justify-center items-center">
+        <div className="min-h-screen bg-base-200 flex flex-col justify-center items-center">
+            <Link href="/" className="btn btn-ghost normal-case text-xl mb-[1rem]">
+                <Image src="/logo.png" alt="SecureNote" width={32} height={32}/>
+                <span>SecureNote</span>
+            </Link>
             <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
-                <h2 className="text-2xl font-semibold text-center text-primary">Sign Up</h2>
+                <h2 className="text-2xl font-semibold text-center text-primary">Register</h2>
 
                 <form className="space-y-4">
                     <div>
@@ -68,7 +74,7 @@ export default function Register() {
 
                 <div className="text-center mt-4">
                     <p className="text-sm">
-                        <span>Already have an account?</span> <a href="/login" className="text-link hover:text-link-focus">Log in</a>
+                        <span>Already have an account?</span> <a href="/login" className="text-link link-primary hover:text-link-focus">Log in</a>
                     </p>
                 </div>
             </div>
