@@ -15,8 +15,7 @@ public class JwtService : IJwtService {
 
     public JwtService(
         IOptions<JwtSettings> jwtSettings,
-        IOptions<MfaSettings> mfaSettings,
-        ILogger<JwtService> logger) {
+        IOptions<MfaSettings> mfaSettings) {
         _jwtSettings = jwtSettings;
         _mfaSettings = mfaSettings;
     }
@@ -25,8 +24,7 @@ public class JwtService : IJwtService {
         var claims = new List<Claim>() {
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new Claim(ClaimTypes.Email, user.Email!),
-            new Claim(ClaimTypes.Name, user.FirstName),
-            new Claim(ClaimTypes.Surname, user.LastName)
+            new Claim(ClaimTypes.Name, user.FirstName)
         };
         if (customClaims is not null) {
             claims.AddRange(customClaims.Select(c => new Claim(c.Key, c.Value)));

@@ -74,7 +74,7 @@ public class AuthController : ControllerBase {
             UserName = dto.Email,
             FirstName = dto.FirstName,
             LastName = dto.LastName,
-            EmailConfirmed = false,
+            EmailConfirmed = true,
             IsActive = true
         };
         

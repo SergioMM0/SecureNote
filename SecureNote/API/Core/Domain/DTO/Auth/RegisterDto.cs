@@ -22,12 +22,6 @@ public class RegisterDto {
     public string Email { get; set; } = default!;
 
     /// <summary>
-    /// The user's phone number.
-    /// </summary>
-    /// <example>+45 12 34 56 78</example>
-    public string? PhoneNumber { get; set; } = default!;
-
-    /// <summary>
     /// The user's password.
     /// </summary>
     /// <example>Passw0rd!</example>
@@ -39,7 +33,6 @@ public class RegisterDtoValidator : AbstractValidator<RegisterDto> {
         RuleFor(x => x.FirstName).NotEmpty();
         RuleFor(x => x.LastName).NotEmpty();
         RuleFor(x => x.Email).NotEmpty().EmailAddress();
-        RuleFor(x => x.PhoneNumber).NotEmpty();
         RuleFor(x => x.Password).NotEmpty();
     }
 }
