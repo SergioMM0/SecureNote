@@ -61,15 +61,6 @@ public class CustomSignInManager<TUser> : SignInManager<TUser> where TUser : App
 
             return SignInResult.Success;
         }
-        Logger.LogDebug(new EventId(2, "InvalidPassword"), "User failed to provide the correct password.");
-
-        if (UserManager.SupportsUserLockout && lockoutOnFailure) {
-            // If lockout is requested, increment access failed count which might lock out the user
-            await UserManager.AccessFailedAsync(user);
-            if (await UserManager.IsLockedOutAsync(user)) {
-                return await LockedOut(user);
-            }
-        }
         return SignInResult.Failed;
     }
 

@@ -31,4 +31,9 @@ public class CustomUserManager<TUser> : UserManager<TUser> where TUser : Applica
         var result = await base.SetTwoFactorEnabledAsync(user, enabled);
         return result;
     }
+
+    public virtual async Task<IdentityResult> Register(TUser user, string password) {
+        var result = await base.CreateAsync(user, password);
+        return result;
+    }
 }

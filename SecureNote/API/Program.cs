@@ -2,6 +2,7 @@ using System.Text;
 using API.Application.Extensions;
 using API.Core.Configuration;
 using API.Infrastructure;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -38,6 +39,9 @@ builder.Services.BuildIdentityUser();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+
+// Add fluent validation
+builder.Services.AddFluentValidationAutoValidation();
 
 // Add services and repositories to ApplicationBuilder
 builder.Services.AddServicesAndRepositories();
