@@ -1,6 +1,6 @@
 ﻿using Domain;
 
-namespace API.Application.Interfaces;
+namespace API.Application.Interfaces.Repositories;
 
 public interface INoteRepository {
     public Note Create(Note note);

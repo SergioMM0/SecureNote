@@ -2,7 +2,8 @@
 
 namespace API.Controllers;
 
-[Route("api/[controller]")]
+[ApiController]
+[Route("[controller]")]
 [Produces("application/json")]
 public class NoteController : ControllerBase {
     [HttpGet]
