@@ -87,13 +87,22 @@ export default function Home() {
                                 placeholder="Write your markdown here..."
                             />
                             <div className="flex items-center mt-4">
-                                <input
-                                    type="checkbox"
-                                    checked={selectedNoteDetails.isNSFW}
-                                    onChange={handleNSFWToggle}
-                                    className="mr-2"
-                                />
-                                <label className="text-sm text-base-content">Mark as NSFW</label>
+                                <div className="flex space-x-2">
+                                    {selectedNoteDetails.tags.map((tag, index) => (
+                                        <span key={index} className="badge badge-secondary">
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+                                <div className="ml-auto flex items-center">
+                                    <label className="text-sm text-base-content mr-2">NSFW</label>
+                                    <input
+                                        type="checkbox"
+                                        checked={selectedNoteDetails.isNSFW}
+                                        onChange={handleNSFWToggle}
+                                        className="toggle toggle-error"
+                                    />
+                                </div>
                             </div>
                         </div>
 
