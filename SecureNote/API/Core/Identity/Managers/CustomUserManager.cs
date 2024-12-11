@@ -34,6 +34,8 @@ public class CustomUserManager<TUser> : UserManager<TUser> where TUser : Applica
 
     public virtual async Task<IdentityResult> Register(TUser user, string password) {
         var result = await base.CreateAsync(user, password);
+        await AddToRoleAsync(user, "User");
+        
         return result;
     }
 }

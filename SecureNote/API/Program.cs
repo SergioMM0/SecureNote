@@ -2,6 +2,7 @@ using System.Text;
 using API.Application.Extensions;
 using API.Core.Configuration;
 using API.Infrastructure;
+using API.Infrastructure.Initializers;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -60,6 +61,12 @@ app.MapControllers();
 if (app.Environment.IsDevelopment()) {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+
+if (args.Contains("db-init") || args.Contains("--db-init")) {
+    using var scope = app.Services.CreateScope();
+    var dbInitializer = scope.ServiceProvider.GetRequiredService<DbInitializer>();
+    await dbInitializer.Init();
 }
 
 //app.UseHttpsRedirection();

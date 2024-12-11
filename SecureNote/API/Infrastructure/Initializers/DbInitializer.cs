@@ -21,5 +21,13 @@ public class DbInitializer {
         await _db.Database.EnsureDeletedAsync();
         await _db.Database.EnsureCreatedAsync();
         
+        if (!_db.Roles.Any()) {
+            await _roleManager.CreateAsync(new ApplicationRole() {
+                Name = "Admin"
+            });
+            await _roleManager.CreateAsync(new ApplicationRole() {
+                Name = "User"
+            });
+        }
     }
 }

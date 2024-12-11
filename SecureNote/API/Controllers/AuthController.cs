@@ -78,16 +78,19 @@ public class AuthController : ControllerBase {
             IsActive = true
         };
         
-        var result = await _userManager.CreateAsync(user, dto.Password);
+        var result = await _userManager.Register(user, dto.Password);
+        
+        var roles = await _userManager.GetRolesAsync(user);
         
         if (result.Succeeded) {
-            return Ok(new UserDto() {
-                Id = user.Id,
-                Email = user.Email,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                TwoFactorEnabled = false
-            });
+            return Ok(new LoginSuccessDto(
+                user.Id,
+                user.Email!,
+                user.FirstName,
+                user.LastName,
+                roles,
+                _jwtService.GenerateJwtToken(user, roles)
+            ));
         }
         return BadRequest(result.Errors);
     }
