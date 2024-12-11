@@ -2,11 +2,13 @@
 
 import React, { useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { AiOutlineEyeInvisible, AiOutlineWarning } from "react-icons/ai"; // React icon for the hidden eye
+import {AiOutlineEyeInvisible, AiOutlineLogout, AiOutlineWarning, AiOutlineFile } from "react-icons/ai"; // React icon for the hidden eye
 import { useAtom } from "jotai"; // Jotai hook to access store
 import { mockNotesAtom } from "../atoms"; // Import the atom
+import { useRouter } from "next/navigation"; // Import the useRouter hook
 
 export default function Notes() {
+    const router = useRouter(); // Initialize useRouter
     // Fetch notes from the Jotai store
     const [mockNotes, setMockNotes] = useAtom(mockNotesAtom);
     const [selectedNote, setSelectedNote] = useState(mockNotes[0].title);
@@ -24,12 +26,30 @@ export default function Notes() {
         setIsConfirmed(!selectedNoteDetails.isNSFW);
     };
 
+    const logout = () => {
+        // Redirect to the login page
+        router.push("/login");
+    }
+
     return (
         <div className="flex min-h-screen p-[1rem] bg-base-100">
             {/* Sidebar */}
-            <div className="w-fit max-w-96 bg-base-200 rounded-lg shadow-lg p-4">
-                <h2 className="text-lg font-bold mb-4">Notes</h2>
-                <ul className="space-y-2">
+            <div className="flex flex-col w-fit max-w-96 bg-base-200 rounded-lg shadow-lg p-4">
+                <div className="flex justify-between items-center space-x-2 mb-4">
+                    <h2 className="text-lg font-bold">Notes</h2>
+                    <button
+                        onClick={() => {
+                            setNoteTitle("");
+                            setMarkdownContent("");
+                            setIsConfirmed(true);
+                        }}
+                        className="btn btn-sm btn-primary"
+                    >
+                        <span>New</span>
+                        <AiOutlineFile size={20} />
+                    </button>
+                </div>
+                <ul className="space-y-2 overflow-y-auto">
                     {mockNotes.map((note) => (
                         <li
                             key={note.title}
@@ -39,8 +59,8 @@ export default function Notes() {
                                 setMarkdownContent(note.content);
                                 setIsConfirmed(!note.isNSFW);
                             }}
-                            className={`p-2 bg-base-300 rounded-lg cursor-pointer hover:bg-primary hover:text-primary-content transition ${
-                                selectedNote === note.title ? "bg-primary text-primary-content" : ""
+                            className={`p-2 bg-base-300 rounded-lg cursor-pointer hover:bg-secondary hover:text-secondary-content transition ${
+                                selectedNote === note.title ? "bg-secondary text-secondary-content" : ""
                             } flex items-center justify-between`}
                         >
                             <span>{note.title}</span>
@@ -50,6 +70,14 @@ export default function Notes() {
                         </li>
                     ))}
                 </ul>
+                {/* Logout Button */}
+                <button
+                    onClick={logout}
+                    className="btn btn-ghost btn-sm mt-auto"
+                >
+                    <span>Logout</span>
+                    <AiOutlineLogout size={20} />
+                </button>
             </div>
 
             {/* Main Content */}
@@ -89,7 +117,7 @@ export default function Notes() {
                             <div className="flex items-center mt-4">
                                 <div className="flex space-x-2">
                                     {selectedNoteDetails.tags.map((tag, index) => (
-                                        <span key={index} className="badge badge-secondary">
+                                        <span key={index} className="badge badge-accent">
                                             {tag}
                                         </span>
                                     ))}
