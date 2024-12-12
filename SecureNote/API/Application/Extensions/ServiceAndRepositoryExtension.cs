@@ -1,5 +1,4 @@
-﻿using API.Application.Interfaces.Authentication;
-using API.Application.Interfaces.Repositories;
+﻿using API.Application.Interfaces.Repositories;
 using API.Application.Services;
 using API.Core.Interfaces;
 using API.Infrastructure;

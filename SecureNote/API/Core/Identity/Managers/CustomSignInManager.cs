@@ -1,5 +1,5 @@
-﻿using API.Application.Interfaces.Authentication;
-using API.Core.Identity.Entities;
+﻿using API.Core.Identity.Entities;
+using API.Core.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
