@@ -1,4 +1,4 @@
-namespace Domain {
+namespace API.Core.Domain.Entities {
     /// <summary>
     /// Represents a tag entity used for categorization or labeling.
     /// Each tag has a unique identifier, a name, and associated keywords.

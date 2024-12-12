@@ -1,4 +1,6 @@
-﻿namespace Domain {
+﻿using API.Core.Identity.Entities;
+
+namespace API.Core.Domain.Entities {
     /// <summary>
     /// Represents a note created by a user, containing a title, content, and optional associated tags.
     /// </summary>
@@ -9,9 +11,14 @@
         public Guid Id { get; set; }
 
         /// <summary>
-        /// A GUID representing the user who owns the note. This property is required.
+        /// A GUID representing the user who owns the note. This property is required. Used as a foreign key.
         /// </summary>
         public required Guid UserId { get; set; }
+        
+        /// <summary>
+        /// This property is required by EF.
+        /// </summary>
+        public required ApplicationUser User { get; set; }
 
         /// <summary>
         /// A short and descriptive title for the note. This property is required.

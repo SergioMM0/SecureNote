@@ -1,6 +1,6 @@
-﻿using API.Core.Identity.Entities;
+﻿using API.Core.Domain.Entities;
+using API.Core.Identity.Entities;
 using API.Core.Identity.Managers;
-using Domain;
 using Microsoft.AspNetCore.Identity;
 
 namespace API.Infrastructure.Initializers;

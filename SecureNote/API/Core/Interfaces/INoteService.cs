@@ -1,4 +1,4 @@
-﻿using Domain;
+﻿using API.Core.Domain.Entities;
 
 namespace API.Core.Interfaces;
 

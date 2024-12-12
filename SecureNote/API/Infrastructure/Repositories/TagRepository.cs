@@ -1,5 +1,5 @@
 ﻿using API.Application.Interfaces.Repositories;
-using Domain;
+using API.Core.Domain.Entities;
 
 namespace API.Infrastructure.Repositories;
 

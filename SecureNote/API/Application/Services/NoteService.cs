@@ -1,6 +1,8 @@
 ﻿using API.Application.Interfaces.Repositories;
+using API.Core.Domain.DTO.User;
+using API.Core.Domain.Entities;
+using API.Core.Identity.Entities;
 using API.Core.Interfaces;
-using Domain;
 
 namespace API.Application.Services;
 
@@ -10,7 +12,10 @@ public class NoteService : INoteService {
 
     // When the user presses the "New Note" button, the Create method is called, an empty note is created, and the note is returned.
     public Note Create() {
-        return _noteRepository.Create(new Note());
+        return _noteRepository.Create(new Note() {
+            UserId = new Guid(),
+            User = null!
+        });
     }
 
     // When the user presses the "Save" button, the Update method is called, the note and it's tags are updated, and the note is returned.
