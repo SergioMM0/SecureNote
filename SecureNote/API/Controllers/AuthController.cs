@@ -66,7 +66,7 @@ public class AuthController : ControllerBase {
     [AllowAnonymous]
     [HttpPost("Register")]
     [Consumes(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserDto))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LoginSuccessDto))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Register([FromBody] RegisterDto dto) {
         var user = new ApplicationUser() {

@@ -1,5 +1,6 @@
 ﻿namespace API.Core.Domain.DTO.User;
 
+// unused for now
 public class UserDto {
     /// <summary>
     /// The Id of the user.
