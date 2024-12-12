@@ -161,5 +161,6 @@ public class DbInitializer {
                     "education apps", "problem-solving", "knowledge sharing", "curiosity"
                 ]
             });
+        await _db.SaveChangesAsync();
     }
 }
