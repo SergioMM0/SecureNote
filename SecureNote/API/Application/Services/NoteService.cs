@@ -30,11 +30,12 @@ public class NoteService : INoteService {
     /// <summary>
     /// When the user presses the "New Note" button, the Create method is called, an empty note is created, and the note is returned.
     /// </summary>
-    public async Task Create() {
-        await _noteRepository.Create(new Note {
+    public async Task<Note> Create() {
+        var result = await _noteRepository.Create(new Note {
             UserId = (Guid) _currentContext.UserId!
         });
         await _dbContext.SaveChangesAsync();
+        return result;
     }
 
     /// <summary>
