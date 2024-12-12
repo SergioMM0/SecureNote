@@ -1,7 +1,6 @@
 ﻿using System.Net.Mime;
 using API.Application.Interfaces.Authentication;
 using API.Core.Domain.DTO.Auth;
-using API.Core.Domain.DTO.User;
 using API.Core.Identity.Entities;
 using API.Core.Identity.Managers;
 using Microsoft.AspNetCore.Authorization;
