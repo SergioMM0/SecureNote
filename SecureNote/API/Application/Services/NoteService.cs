@@ -15,12 +15,7 @@ public class NoteService : INoteService {
 
     // When the user presses the "Save" button, the Update method is called, the note and it's tags are updated, and the note is returned.
     public Note Update(Note note) {
-        // Validate the note's content and title
-        if (string.IsNullOrWhiteSpace(note.Title) && string.IsNullOrWhiteSpace(note.Content)) {
-            throw new ArgumentException("Note title and content cannot be null, empty, or whitespace.");
-        }
-
-        // Update the tags associated with the note
+        // Update (rewrite) the tags associated with the note
         note.Tags = Tag(note);
 
         return _noteRepository.Update(note);
@@ -33,26 +28,19 @@ public class NoteService : INoteService {
     public Note Get(Guid id) {
         return _noteRepository.Get(id);
     }
-
+    
     /// <summary>
-    /// Identifies and returns a list of tags that match the content or title of the given note.
+    /// Analyzes the provided note and assigns relevant tags based on the content and title.
     /// </summary>
-    /// <param name="note">The note object containing the content and title to analyze.</param>
+    /// <param name="note">The note object containing the title and content to analyze.</param>
     /// <returns>
-    /// An array of strings representing the names of tags that match keywords found in the note's content or title.
+    /// An array of strings representing all the matched tags based on the note's title and content.
+    /// If no tags match or the note is invalid (has no title AND content), returns an empty array.
     /// </returns>
-    /// <exception cref="ArgumentException">
-    /// Thrown when the note, its content, or its title is null, empty, or contains only whitespace.
-    /// </exception>
-    /// <remarks>
-    /// This method performs a case-insensitive search to match keywords associated with tags
-    /// against the content and title of the provided note. Tags and their keywords are fetched from
-    /// the tag repository.
-    /// </remarks>
     public string[] Tag(Note note) {
         // Validate the note's content and title
         if (string.IsNullOrWhiteSpace(note.Title) && string.IsNullOrWhiteSpace(note.Content)) {
-            throw new ArgumentException("Note title and content cannot be null, empty, or whitespace.");
+            return Array.Empty<string>();
         }
 
         // Fetch all available tags from the repository
