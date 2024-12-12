@@ -3,9 +3,9 @@
 namespace API.Core.Interfaces;
 
 public interface INoteService {
-    public Note Create();
-    public Note Get(Guid id);
-    public Note Update(Note note);
-    public void Delete(Guid id);
-    public string[] Tag(Note note);
+    Task<IEnumerable<Note>> GetAllFromUser(Guid userId, bool nfsw);
+    Task<Note?> Get(Guid id);
+    Task Create();
+    Task<Note> Update(Note note);
+    void Delete(Guid id);
 }

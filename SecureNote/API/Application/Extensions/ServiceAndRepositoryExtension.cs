@@ -1,5 +1,6 @@
 ﻿using API.Application.Interfaces.Repositories;
 using API.Application.Services;
+using API.Core.Domain.Context;
 using API.Core.Interfaces;
 using API.Infrastructure;
 using API.Infrastructure.Initializers;
@@ -29,7 +30,7 @@ public static class ServiceAndRepositoryExtension {
 
         #endregion
 
-        //services.AddScoped<CurrentContext>();
+        services.AddScoped<CurrentContext>();
 
         services.AddScoped<DbInitializer>();
 

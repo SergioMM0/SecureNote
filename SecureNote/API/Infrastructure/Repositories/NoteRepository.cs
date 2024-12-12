@@ -1,20 +1,33 @@
 ﻿using API.Application.Interfaces.Repositories;
 using API.Core.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Infrastructure.Repositories;
 
 public class NoteRepository : INoteRepository {
+    private readonly AppDbContext _db;
+    
+    public NoteRepository(AppDbContext appDbContext) {
+        _db = appDbContext;
+    }
 
-    public Note Create(Note note) {
-        throw new NotImplementedException();
+    public async Task<IEnumerable<Note>> GetAllByUserId(Guid userId, bool nfsw) {
+        return await _db.Notes
+            .Where(n => n.UserId == userId && n.Nfsw == nfsw)
+            .ToListAsync();
     }
-    public Note Get(Guid id) {
-        throw new NotImplementedException();
+    
+    public async Task<Note> Create(Note note) {
+        var result = await _db.Notes.AddAsync(note);
+        return result.Entity;
     }
-    public Note Update(Note note) {
-        throw new NotImplementedException();
+    
+    public async Task<Note?> Get(Guid id) {
+        return await _db.Notes.FindAsync(id);
     }
+    
     public void Delete(Guid id) {
-        throw new NotImplementedException();
+        var note = _db.Notes.Find(id);
+        if (note != null) _db.Notes.Remove(note);
     }
 }

@@ -1,37 +1,64 @@
 ﻿using API.Application.Interfaces.Repositories;
-using API.Core.Domain.DTO.User;
+using API.Core.Domain.Context;
 using API.Core.Domain.Entities;
-using API.Core.Identity.Entities;
 using API.Core.Interfaces;
+using API.Infrastructure;
 
 namespace API.Application.Services;
 
 public class NoteService : INoteService {
     private readonly INoteRepository _noteRepository;
     private readonly ITagRepository _tagRepository;
-
-    // When the user presses the "New Note" button, the Create method is called, an empty note is created, and the note is returned.
-    public Note Create() {
-        return _noteRepository.Create(new Note() {
-            UserId = new Guid(),
-            User = null!
+    private readonly AppDbContext _dbContext;
+    private readonly CurrentContext _currentContext;
+    
+    public NoteService(INoteRepository noteRepository, ITagRepository tagRepository, AppDbContext dbContext, CurrentContext currentContext) {
+        _noteRepository = noteRepository;
+        _tagRepository = tagRepository;
+        _dbContext = dbContext;
+        _currentContext = currentContext;
+    }
+    
+    public Task<IEnumerable<Note>> GetAllFromUser(Guid userId, bool nfsw) {
+        return _noteRepository.GetAllByUserId(userId, nfsw);
+    }
+    
+    public async Task<Note?> Get(Guid id) {
+        return await _noteRepository.Get(id);
+    }
+    
+    /// <summary>
+    /// When the user presses the "New Note" button, the Create method is called, an empty note is created, and the note is returned.
+    /// </summary>
+    public async Task Create() {
+        await _noteRepository.Create(new Note {
+            UserId = (Guid) _currentContext.UserId!
         });
+        await _dbContext.SaveChangesAsync();
     }
 
-    // When the user presses the "Save" button, the Update method is called, the note and it's tags are updated, and the note is returned.
-    public Note Update(Note note) {
+    /// <summary>
+    /// When the user presses the "Save" button, the Update method is called, the note and it's tags are updated, and the note is returned.
+    /// </summary>
+    /// <param name="note"></param>
+    /// <returns></returns>
+    public async Task<Note> Update(Note note) {
+        var result = await _noteRepository.Get(note.Id);
+        
+        if (result is null) {
+            throw new Exception("Note not found.");
+        }
+        
         // Update (rewrite) the tags associated with the note
-        note.Tags = Tag(note);
-
-        return _noteRepository.Update(note);
+        result.Tags = await Tag(result);
+        
+        await _dbContext.SaveChangesAsync();
+        return result;
     }
 
     public void Delete(Guid id) {
         _noteRepository.Delete(id);
-    }
-
-    public Note Get(Guid id) {
-        return _noteRepository.Get(id);
+        _dbContext.SaveChangesAsync();
     }
     
     /// <summary>
@@ -42,14 +69,14 @@ public class NoteService : INoteService {
     /// An array of strings representing all the matched tags based on the note's title and content.
     /// If no tags match or the note is invalid (has no title AND content), returns an empty array.
     /// </returns>
-    public string[] Tag(Note note) {
+    private async Task<string[]> Tag(Note note) {
         // Validate the note's content and title
         if (string.IsNullOrWhiteSpace(note.Title) && string.IsNullOrWhiteSpace(note.Content)) {
-            return Array.Empty<string>();
+            return [];
         }
 
         // Fetch all available tags from the repository
-        var tags = _tagRepository.GetAll();
+        var tags = await _tagRepository.GetAll();
 
         // Create a set to store matched tags
         var matchedTags = new HashSet<string>();

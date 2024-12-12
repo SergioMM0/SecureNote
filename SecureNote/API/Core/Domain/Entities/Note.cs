@@ -18,7 +18,7 @@ namespace API.Core.Domain.Entities {
         /// <summary>
         /// This property is required by EF.
         /// </summary>
-        public required ApplicationUser User { get; set; }
+        public ApplicationUser User { get; set; }
 
         /// <summary>
         /// A short and descriptive title for the note. This property is required.
@@ -31,7 +31,12 @@ namespace API.Core.Domain.Entities {
         /// </summary>
         /// <example>"Discussed quarterly goals and team progress."</example>
         public string? Content { get; set; }
-
+        
+        /// <summary>
+        /// A boolean value indicating whether the note is safe for work.
+        /// </summary>
+        public bool Nfsw { get; set; }
+        
         /// <summary>
         ///  An optional array of strings representing the tags linked to the note. Defaults to an empty array if not specified.
         /// </summary>
