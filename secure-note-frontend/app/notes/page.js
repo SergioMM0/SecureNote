@@ -4,13 +4,13 @@ import React, { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import {AiOutlineEyeInvisible, AiOutlineLogout, AiOutlineWarning, AiOutlineFile } from "react-icons/ai"; // React icon for the hidden eye
 import { useAtom } from "jotai"; // Jotai hook to access store
-import { mockNotesAtom } from "../atoms"; // Import the atom
+import { notesAtom } from "../atoms/notesAtom"; // Import the atom
 import { useRouter } from "next/navigation"; // Import the useRouter hook
 
 export default function Notes() {
     const router = useRouter(); // Initialize useRouter
     // Fetch notes from the Jotai store
-    const [mockNotes, setMockNotes] = useAtom(mockNotesAtom);
+    const [mockNotes, setMockNotes] = useAtom(notesAtom);
     const [selectedNote, setSelectedNote] = useState(mockNotes[0].title);
     const [noteTitle, setNoteTitle] = useState(mockNotes[0].title);
     const [markdownContent, setMarkdownContent] = useState(mockNotes[0].content);
