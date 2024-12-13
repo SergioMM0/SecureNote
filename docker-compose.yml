@@ -10,7 +10,7 @@ services:
     depends_on:
       - api
     environment:
-      - API_URL=http://api:5098  # Update this URL to match the backend service
+      - API_URL=http://api:8080  # Update this URL to match the backend service
     networks:
       - secure_note_network
 
@@ -19,8 +19,8 @@ services:
       context: ./SecureNote  # Specify the API folder location
       dockerfile: API/Dockerfile  # Specify the Dockerfile location within the API folder
     ports:
-      - "5098:5098"  # Port for HTTP
-      - "7213:7213"  # Port for HTTPS
+      - "8080:8080"
+      - "8081:8081"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Username=postgres;Password=root;Database=SecureNotes  # PostgreSQL connection string
@@ -29,11 +29,12 @@ services:
       - Jwt__Audience=securenote.com
       - Jwt__ExpirationMinutes=1440
       - Mfa__MfaChallengeKey=@A32szN4K5j$rl89C6h938ht4eQohiGtNVKVVRBZ@ezI8oDje9
+      - FrontendUrl=http://frontend:3000 
     depends_on:
       - postgres
     networks:
       - secure_note_network
-    command: ["dotnet", "API.dll", "--db-init"]
+    command: ["dotnet", "API.dll", "--db-init", "--swagger"]
 
   postgres:
     image: postgres:17
@@ -41,6 +42,8 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=SecureNotes
+    ports:
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
