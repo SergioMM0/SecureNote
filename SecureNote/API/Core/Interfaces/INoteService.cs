@@ -7,5 +7,5 @@ public interface INoteService {
     Task<Note?> Get(Guid id);
     Task<Note> Create();
     Task<Note> Update(Note note);
-    void Delete(Guid id);
+    Task Delete(Guid id);
 }

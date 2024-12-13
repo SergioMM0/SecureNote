@@ -30,11 +30,6 @@ public class CustomUserManager<TUser> : UserManager<TUser> where TUser : Applica
             logger) {
         _context = context;
     }
-    
-    public virtual async Task<IdentityResult> SetTwoFactorEnabledAndSendEmailAsync(TUser user, bool enabled) {
-        var result = await base.SetTwoFactorEnabledAsync(user, enabled);
-        return result;
-    }
 
     public virtual async Task<IdentityResult> Register(TUser user, string password) {
         var result = await base.CreateAsync(user, password);

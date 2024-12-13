@@ -26,8 +26,7 @@ public class NoteRepository : INoteRepository {
         return await _db.Notes.FindAsync(id);
     }
     
-    public void Delete(Guid id) {
-        var note = _db.Notes.Find(id);
-        if (note != null) _db.Notes.Remove(note);
+    public void Delete(Note note) {
+        _db.Notes.Remove(note);
     }
 }

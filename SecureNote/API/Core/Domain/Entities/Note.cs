@@ -13,7 +13,7 @@ namespace API.Core.Domain.Entities {
         /// <summary>
         /// A GUID representing the user who owns the note. This property is required. Used as a foreign key.
         /// </summary>
-        public required Guid UserId { get; set; }
+        public Guid UserId { get; set; }
         
         /// <summary>
         /// This property is required by EF.

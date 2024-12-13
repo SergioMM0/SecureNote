@@ -1,6 +1,7 @@
 ﻿using API.Application.Interfaces.Repositories;
 using API.Core.Domain.Context;
 using API.Core.Domain.Entities;
+using API.Core.Domain.Exception;
 using API.Core.Interfaces;
 using API.Infrastructure;
 
@@ -47,19 +48,28 @@ public class NoteService : INoteService {
         var result = await _noteRepository.Get(note.Id);
         
         if (result is null) {
-            throw new Exception("Note not found.");
+            throw new NotFoundException($"Note with id: {note.Id} not found.");
         }
         
         // Update (rewrite) the tags associated with the note
+        _dbContext.Attach(result);
+        result.Title = note.Title;
+        result.Content = note.Content;
         result.Tags = await Tag(result);
         
         await _dbContext.SaveChangesAsync();
         return result;
     }
 
-    public void Delete(Guid id) {
-        _noteRepository.Delete(id);
-        _dbContext.SaveChangesAsync();
+    public async Task Delete(Guid id) {
+        var note = await _noteRepository.Get(id);
+        
+        if (note is null) {
+            throw new NotFoundException($"Note with id: {id} not found.");
+        }
+        
+        _noteRepository.Delete(note);
+        await _dbContext.SaveChangesAsync();
     }
     
     /// <summary>
