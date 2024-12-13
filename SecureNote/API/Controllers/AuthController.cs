@@ -53,8 +53,7 @@ public class AuthController : ControllerBase {
             return Ok(new LoginSuccessDto(
                 user.Id,
                 user.Email!,
-                user.FirstName,
-                user.LastName,
+                user.UserName!,
                 roles,
                 _jwtService.GenerateJwtToken(user, roles)
             ));
@@ -70,12 +69,10 @@ public class AuthController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Register([FromBody] RegisterDto dto) {
         var user = new ApplicationUser() {
+            UserName = dto.Username,
             Email = dto.Email,
-            UserName = dto.Email,
-            FirstName = dto.FirstName,
-            LastName = dto.LastName,
-            EmailConfirmed = true,
-            IsActive = true
+            EmailConfirmed = false, // Email verification is not yet implemented, but might be in the future
+            IsActive = true,
         };
         
         var result = await _userManager.Register(user, dto.Password);
@@ -85,9 +82,8 @@ public class AuthController : ControllerBase {
         if (result.Succeeded) {
             return Ok(new LoginSuccessDto(
                 user.Id,
-                user.Email!,
-                user.FirstName,
-                user.LastName,
+                user.Email,
+                user.UserName,
                 roles,
                 _jwtService.GenerateJwtToken(user, roles)
             ));

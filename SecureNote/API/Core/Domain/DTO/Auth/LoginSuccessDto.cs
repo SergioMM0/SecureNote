@@ -13,16 +13,10 @@ public class LoginSuccessDto {
     public string Email { get; set; }
 
     /// <summary>
-    /// The first name of the user logging in.
+    /// The username of the user logging in.
     /// </summary>
-    /// <example>John</example>
-    public string FirstName { get; set; }
-
-    /// <summary>
-    /// The last name of the user logging in.
-    /// </summary>
-    /// <example>Doe</example>
-    public string LastName { get; set; }
+    /// <example>john.doe</example>
+    public string Username { get; set; }
 
     /// <summary>
     /// The roles of the user (User, Admin).
@@ -45,15 +39,13 @@ public class LoginSuccessDto {
     /// </summary>
     /// <param name="id">The unique identifier of the user.</param>
     /// <param name="email">The email of the user.</param>
-    /// <param name="firstName">The first name of the user.</param>
-    /// <param name="lastName">The last name of the user.</param>
+    /// <param name="username">The username of the user.</param>
     /// <param name="roles">The roles of the user.</param>
     /// <param name="token">The token of the user.</param>
-    public LoginSuccessDto(Guid id, string email, string firstName, string lastName, IList<string>? roles, string token) {
+    public LoginSuccessDto(Guid id, string email, string username, IList<string>? roles, string token) {
         Id = id;
         Email = email;
-        FirstName = firstName;
-        LastName = lastName;
+        Username = username;
         Roles = roles;
         Token = token;
     }

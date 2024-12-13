@@ -4,21 +4,15 @@ namespace API.Core.Domain.DTO.Auth;
 
 public class RegisterDto {
     /// <summary>
-    /// The user's first name.
+    /// The user's username.
     /// </summary>
-    /// <example>John</example>
-    public string FirstName { get; set; } = default!;
-
-    /// <summary>
-    /// The user's last name.
-    /// </summary>
-    /// <example>Doe</example>
-    public string LastName { get; set; } = default!;
+    /// <example>johndoe123</example>
+    public string Username { get; set; } = default!;
 
     /// <summary>
     /// The user's email address.
     /// </summary>
-    /// <example>john.doe@example</example>
+    /// <example>john.doe@example.com</example>
     public string Email { get; set; } = default!;
 
     /// <summary>
@@ -30,9 +24,8 @@ public class RegisterDto {
 
 public class RegisterDtoValidator : AbstractValidator<RegisterDto> {
     public RegisterDtoValidator() {
-        RuleFor(x => x.FirstName).NotEmpty();
-        RuleFor(x => x.LastName).NotEmpty();
-        RuleFor(x => x.Email).NotEmpty().EmailAddress();
-        RuleFor(x => x.Password).NotEmpty();
+        RuleFor(x => x.Username).NotEmpty().WithMessage("Username is required.");
+        RuleFor(x => x.Email).NotEmpty().EmailAddress().WithMessage("A valid email address is required.");
+        RuleFor(x => x.Password).NotEmpty().WithMessage("Password is required.");
     }
 }
