@@ -1,5 +1,6 @@
 using System.Text;
 using API.Application.Extensions;
+using API.Application.Middleware;
 using API.Core.Configuration;
 using API.Core.Domain.Mapping;
 using API.Infrastructure;
@@ -58,6 +59,8 @@ builder.Services.AddDbContext<AppDbContext>(db => {
 });
 
 var app = builder.Build();
+
+app.UseMiddleware<CurrentContextMiddleware>();
 
 app.MapControllers();
 

@@ -52,8 +52,6 @@ public class AuthController : ControllerBase {
             return Ok(new LoginSuccessDto(
                 user.Id,
                 user.Email!,
-                user.FirstName,
-                user.LastName,
                 roles,
                 _jwtService.GenerateJwtToken(user, roles)
             ));
@@ -70,9 +68,7 @@ public class AuthController : ControllerBase {
     public async Task<IActionResult> Register([FromBody] RegisterDto dto) {
         var user = new ApplicationUser() {
             Email = dto.Email,
-            UserName = dto.Email,
-            FirstName = dto.FirstName,
-            LastName = dto.LastName,
+            UserName = dto.Email.Split("@")[0],
             EmailConfirmed = true,
             IsActive = true
         };
@@ -84,9 +80,7 @@ public class AuthController : ControllerBase {
         if (result.Succeeded) {
             return Ok(new LoginSuccessDto(
                 user.Id,
-                user.Email!,
-                user.FirstName,
-                user.LastName,
+                user.Email,
                 roles,
                 _jwtService.GenerateJwtToken(user, roles)
             ));

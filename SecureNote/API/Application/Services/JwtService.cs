@@ -23,8 +23,7 @@ public class JwtService : IJwtService {
     public string GenerateJwtToken(ApplicationUser user, IEnumerable<string> roles, IDictionary<string, dynamic>? customClaims) {
         var claims = new List<Claim>() {
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Email, user.Email!),
-            new Claim(ClaimTypes.Name, user.FirstName)
+            new Claim(ClaimTypes.Email, user.Email!)
         };
         if (customClaims is not null) {
             claims.AddRange(customClaims.Select(c => new Claim(c.Key, c.Value)));
