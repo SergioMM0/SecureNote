@@ -1,6 +1,6 @@
 import { atom } from 'jotai';
 
-export const mockNotesAtom = atom([
+export const notesAtom = atom([
     {
         title: "Meeting Notes - Dec 10, 2024",
         content: "# Project Kickoff\n\nWe discussed the roadmap for the next quarter, including key milestones and deadlines. Action items: **Follow up on research** by end of this week.",

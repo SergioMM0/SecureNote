@@ -3,26 +3,52 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation"; // Import the useRouter hook
+import { useRouter } from "next/navigation";
+import { useSetAtom } from "jotai";
+import { authAtom } from "@/app/atoms/authAtom";
+import { register } from "@/app/server/auth/register";
 
 export default function Register() {
-    const router = useRouter(); // Initialize useRouter
+    const router = useRouter();
+    const setAuthState = useSetAtom(authAtom);
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [error, setError] = useState("");
 
-    // Handle form submission
-    const handleSubmit = (e) => {
-        e.preventDefault(); // Prevent the default form submission behavior
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-        // Optional: Add validation here (e.g., check if passwords match)
         if (password !== confirmPassword) {
-            alert("Passwords do not match!");
+            setError("Passwords do not match!");
             return;
         }
 
-        // If validation passes, navigate to the /notes page
+        const dto = { email, username, password };
+
+        const result = await register(dto);
+
+        if (!result.success) {
+            setError(result.message);
+            return;
+        }
+
+        const data = result.data;
+
+        // Update global auth state with user and token
+        setAuthState({
+            isAuthenticated: true,
+            user: {
+                id: data.id,
+                email: data.email,
+                username: data.username,
+                roles: data.roles,
+            },
+            token: data.token,
+        });
+
+        // Redirect to the protected notes page
         router.push("/notes");
     };
 
@@ -34,6 +60,8 @@ export default function Register() {
             </Link>
             <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
                 <h2 className="text-2xl font-semibold text-center text-primary">Register</h2>
+
+                {error && <div className="text-red-600 text-sm text-center">{error}</div>}
 
                 <form className="space-y-4" onSubmit={handleSubmit}>
                     <div>
@@ -104,7 +132,10 @@ export default function Register() {
 
                 <div className="text-center mt-4">
                     <p className="text-sm">
-                        <span>Already have an account?</span> <a href="/login" className="text-link link-primary hover:text-link-focus">Log in</a>
+                        <span>Already have an account?</span>{" "}
+                        <Link href="/login" className="text-link link-primary hover:text-link-focus">
+                            Log in
+                        </Link>
                     </p>
                 </div>
             </div>

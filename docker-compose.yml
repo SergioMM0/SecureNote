@@ -1,0 +1,58 @@
+version: '3.9'
+
+services:
+  frontend:
+    build:
+      context: ./secure-note-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"  # Assuming your frontend runs on port 3000
+    depends_on:
+      - api
+    environment:
+      - API_URL=http://api:8080  # Update this URL to match the backend service
+    networks:
+      - secure_note_network
+
+  api:
+    build:
+      context: ./SecureNote  # Specify the API folder location
+      dockerfile: API/Dockerfile  # Specify the Dockerfile location within the API folder
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Username=postgres;Password=root;Database=SecureNotes  # PostgreSQL connection string
+      - Jwt__Key=wOyy&%H&WiJRpmIfjVMwxh75&7iiCbcjYFXt7vxln8z!MelF
+      - Jwt__Issuer=https://securenote.com
+      - Jwt__Audience=securenote.com
+      - Jwt__ExpirationMinutes=1440
+      - Mfa__MfaChallengeKey=@A32szN4K5j$rl89C6h938ht4eQohiGtNVKVVRBZ@ezI8oDje9
+      - FrontendUrl=http://frontend:3000 
+    depends_on:
+      - postgres
+    networks:
+      - secure_note_network
+    command: ["dotnet", "API.dll", "--db-init", "--swagger"]
+
+  postgres:
+    image: postgres:17
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=SecureNotes
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - secure_note_network
+
+networks:
+  secure_note_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
