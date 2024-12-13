@@ -33,6 +33,7 @@ services:
       - postgres
     networks:
       - secure_note_network
+    command: ["dotnet", "API.dll", "--db-init"]
 
   postgres:
     image: postgres:17
