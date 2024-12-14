@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import ReactMarkdown from "react-markdown";
 import {AiOutlineEyeInvisible, AiOutlineLogout, AiOutlineWarning, AiOutlineFile } from "react-icons/ai"; // React icon for the hidden eye
 import { useAtom } from "jotai"; // Jotai hook to access store
 import { notesAtom } from "../atoms/notesAtom"; // Import the atom
-import { useRouter } from "next/navigation"; // Import the useRouter hook
+import { useRouter } from "next/navigation";
+import {checkAuth} from "@/app/server/auth/checkAuth"; // Import the useRouter hook
 
 export default function Notes() {
     const router = useRouter(); // Initialize useRouter
@@ -15,6 +16,16 @@ export default function Notes() {
     const [noteTitle, setNoteTitle] = useState(mockNotes[0].title);
     const [markdownContent, setMarkdownContent] = useState(mockNotes[0].content);
     const [isConfirmed, setIsConfirmed] = useState(!mockNotes[0].isNSFW);
+    const [isAuthLoading, setIsAuthLoading] = useState(true);
+
+    useEffect(() => {
+        checkAuth().then((response) => {
+            if (!response.authenticated) {
+                router.push("/login");
+            }
+            setIsAuthLoading(false);
+        });
+    }, [router]);
 
     const selectedNoteDetails = mockNotes.find((note) => note.title === selectedNote);
 
@@ -29,6 +40,12 @@ export default function Notes() {
     const logout = () => {
         // Redirect to the login page
         router.push("/login");
+    }
+
+    if (isAuthLoading) {
+        return <div className="flex items-center justify-center h-screen">
+            <div className="loading loading-spinner text-primary"></div>
+        </div>
     }
 
     return (

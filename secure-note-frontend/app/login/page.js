@@ -3,15 +3,19 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation"; // Import the useRouter hook
+import { useRouter } from "next/navigation";
+import {useSetAtom} from "jotai/index";
+import {authAtom} from "@/app/atoms/authAtom";
+import {login} from "@/app/server/auth/login"; // Import the useRouter hook
 
 export default function Login() {
     const router = useRouter(); // Initialize useRouter
+    const setAuthState = useSetAtom(authAtom);
     const [email, setEmail] = useState("test@example.com");
     const [password, setPassword] = useState("Test123!");
 
     // Handle form submission
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault(); // Prevent the default form submission behavior
 
         // Optional: Add validation or authentication logic here
@@ -20,7 +24,31 @@ export default function Login() {
             return;
         }
 
-        // If validation passes, navigate to the /notes page
+        const dto = {email, password};
+
+        const result = await login(dto);
+
+        if (!result.success) {
+            // TODO: Handle error
+            //setError(result.message);
+            return;
+        }
+
+        const data = result.data;
+
+        // Update global auth state with user and token
+        setAuthState({
+            isAuthenticated: true,
+            user: {
+                id: data.id,
+                email: data.email,
+                username: data.username,
+                roles: data.roles,
+            },
+            token: data.token,
+        });
+
+        // Redirect to the protected notes page
         router.push("/notes");
     };
 
