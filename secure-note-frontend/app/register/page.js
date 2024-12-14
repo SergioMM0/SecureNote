@@ -11,10 +11,10 @@ import { register } from "@/app/server/auth/register";
 export default function Register() {
     const router = useRouter();
     const setAuthState = useSetAtom(authAtom);
-    const [email, setEmail] = useState("");
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+    const [email, setEmail] = useState("test@example.com");
+    const [username, setUsername] = useState("testuser");
+    const [password, setPassword] = useState("Test123!");
+    const [confirmPassword, setConfirmPassword] = useState("Test123!");
     const [error, setError] = useState("");
 
     const handleSubmit = async (e) => {

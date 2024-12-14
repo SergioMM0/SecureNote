@@ -8,6 +8,12 @@ public class RegisterDto {
     /// </summary>
     /// <example>john.doe@example</example>
     public string Email { get; set; } = default!;
+    
+    /// <summary>
+    /// The user's username.
+    /// </summary>
+    /// <example>john.doe</example>
+    public string Username { get; set; } = default!;
 
     /// <summary>
     /// The user's password.
@@ -19,6 +25,7 @@ public class RegisterDto {
 public class RegisterDtoValidator : AbstractValidator<RegisterDto> {
     public RegisterDtoValidator() {
         RuleFor(x => x.Email).NotEmpty().EmailAddress();
+        RuleFor(x => x.Username).NotEmpty();
         RuleFor(x => x.Password).NotEmpty();
     }
 }

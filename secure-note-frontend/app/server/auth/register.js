@@ -14,12 +14,12 @@ export async function register(dto) {
 
         return {
             success: true,
-            data: response.data, // Includes user and token information
+            data: response.data,
         };
     } catch (err) {
         return {
             success: false,
-            message: err.message,
+            message: err.response?.data || "An unknown error occurred",
         };
     }
 }
