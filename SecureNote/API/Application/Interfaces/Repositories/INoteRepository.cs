@@ -1,10 +1,10 @@
-﻿using Domain;
+﻿using API.Core.Domain.Entities;
 
 namespace API.Application.Interfaces.Repositories;
 
 public interface INoteRepository {
-    public Note Create(Note note);
-    public Note Get(Guid id);
-    public Note Update(Note note);
-    public void Delete(Guid id);
+    Task<IEnumerable<Note>> GetAllByUserId(Guid userId, bool nfsw);
+    Task<Note?> Get(Guid id);
+    Task<Note> Create(Note note);
+    void Delete(Note note);
 }

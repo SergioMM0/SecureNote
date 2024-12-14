@@ -1,6 +1,8 @@
 using System.Text;
 using API.Application.Extensions;
+using API.Application.Middleware;
 using API.Core.Configuration;
+using API.Core.Domain.Mapping;
 using API.Infrastructure;
 using API.Infrastructure.Initializers;
 using FluentValidation.AspNetCore;
@@ -66,6 +68,9 @@ builder.Services.AddControllers();
 // Add fluent validation
 builder.Services.AddFluentValidationAutoValidation();
 
+// Add automapper
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+
 // Add services and repositories to ApplicationBuilder
 builder.Services.AddServicesAndRepositories();
 
@@ -76,6 +81,8 @@ builder.Services.AddDbContext<AppDbContext>(db => {
 });
 
 var app = builder.Build();
+
+app.UseMiddleware<CurrentContextMiddleware>();
 
 app.MapControllers();
 

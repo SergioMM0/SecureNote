@@ -1,17 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using API.Core.Domain.Entities;
+using Dynamitey;
+using Microsoft.AspNetCore.Identity;
 
 namespace API.Core.Identity.Entities;
 
 public class ApplicationUser : IdentityUser<Guid> {
     /// <summary>
-    /// First name of the user.
+    /// List of note IDs associated with the user. Used as a navigation property.
     /// </summary>
-    public string FirstName { get; set; }
-
-    /// <summary>
-    /// Last name of the user.
-    /// </summary>
-    public string LastName { get; set; }
+    public ICollection<Note> Notes { get; set; } = new List<Note>();
 
     /// <summary>
     /// Whether the user is active or not.

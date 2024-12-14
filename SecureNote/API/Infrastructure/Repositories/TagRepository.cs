@@ -1,11 +1,17 @@
 ﻿using API.Application.Interfaces.Repositories;
-using Domain;
+using API.Core.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Infrastructure.Repositories;
 
 public class TagRepository : ITagRepository {
+    private readonly AppDbContext _dbContext;
+    
+    public TagRepository(AppDbContext dbContext) {
+        _dbContext = dbContext;
+    }
 
-    public IEnumerable<Tag> GetAll() {
-        throw new NotImplementedException();
+    public async Task<IEnumerable<Tag>> GetAll() {
+        return await _dbContext.Tags.ToListAsync();
     }
 }

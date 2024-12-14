@@ -1,6 +1,6 @@
-﻿using API.Application.Interfaces.Authentication;
-using API.Application.Interfaces.Repositories;
+﻿using API.Application.Interfaces.Repositories;
 using API.Application.Services;
+using API.Core.Domain.Context;
 using API.Core.Interfaces;
 using API.Infrastructure;
 using API.Infrastructure.Initializers;
@@ -16,21 +16,14 @@ public static class ServiceAndRepositoryExtension {
     /// Adds the services and repositories.
     /// </summary>
     public static IServiceCollection AddServicesAndRepositories(this IServiceCollection services) {
-        #region Services
 
         services.AddScoped<IJwtService, JwtService>();
         services.AddScoped<INoteService, NoteService>();
 
-        #endregion
-
-        #region Repositories
-
         services.AddScoped<INoteRepository, NoteRepository>();
         services.AddScoped<ITagRepository, TagRepository>();
 
-        #endregion
-
-        //services.AddScoped<CurrentContext>();
+        services.AddScoped<CurrentContext>();
 
         services.AddScoped<DbInitializer>();
 

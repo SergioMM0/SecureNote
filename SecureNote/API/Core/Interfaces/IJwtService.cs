@@ -1,6 +1,6 @@
 ﻿using API.Core.Identity.Entities;
 
-namespace API.Application.Interfaces.Authentication;
+namespace API.Core.Interfaces;
 
 public interface IJwtService {
     public string GenerateJwtToken(ApplicationUser user, IEnumerable<string> roles,

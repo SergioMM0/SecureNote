@@ -1,9 +1,8 @@
 ﻿using System.Net.Mime;
-using API.Application.Interfaces.Authentication;
 using API.Core.Domain.DTO.Auth;
-using API.Core.Domain.DTO.User;
 using API.Core.Identity.Entities;
 using API.Core.Identity.Managers;
+using API.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -53,7 +52,6 @@ public class AuthController : ControllerBase {
             return Ok(new LoginSuccessDto(
                 user.Id,
                 user.Email!,
-                user.UserName!,
                 roles,
                 _jwtService.GenerateJwtToken(user, roles)
             ));
@@ -65,14 +63,14 @@ public class AuthController : ControllerBase {
     [AllowAnonymous]
     [HttpPost("Register")]
     [Consumes(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserDto))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LoginSuccessDto))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Register([FromBody] RegisterDto dto) {
         var user = new ApplicationUser() {
-            UserName = dto.Username,
             Email = dto.Email,
-            EmailConfirmed = false, // Email verification is not yet implemented, but might be in the future
-            IsActive = true,
+            UserName = dto.Email.Split("@")[0],
+            EmailConfirmed = true,
+            IsActive = true
         };
         
         var result = await _userManager.Register(user, dto.Password);
@@ -83,7 +81,6 @@ public class AuthController : ControllerBase {
             return Ok(new LoginSuccessDto(
                 user.Id,
                 user.Email,
-                user.UserName,
                 roles,
                 _jwtService.GenerateJwtToken(user, roles)
             ));
