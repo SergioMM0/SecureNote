@@ -2,13 +2,14 @@
 
 import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { AiOutlineEyeInvisible, AiOutlineLogout, AiOutlineWarning, AiOutlineFile } from "react-icons/ai";
+import { AiOutlineEyeInvisible, AiOutlineLogout, AiOutlineWarning, AiOutlineFile, AiOutlineDelete } from "react-icons/ai"; // Import the trash icon
 import { useAtom } from "jotai";
 import { notesAtom } from "../atoms/notesAtom";
 import { useRouter } from "next/navigation";
 import { checkAuth } from "@/app/server/auth/checkAuth";
 import { createNote } from "@/app/server/note/createNote";
 import { getAllNotes } from "@/app/server/note/getAllNotes";
+import { deleteNote } from "@/app/server/note/deleteNote"; // Assuming you have created a deleteNote function
 
 export default function Notes() {
     const router = useRouter();
@@ -24,13 +25,12 @@ export default function Notes() {
                 router.push("/login");
                 return;
             }
-        }
+        };
 
         const fetchNotes = async () => {
             const notesResponse = await getAllNotes();
             if (notesResponse.success) {
                 setNotes(notesResponse.data);
-                console.log(notesResponse.data);
                 if (notesResponse.data.length > 0) {
                     setSelectedNote(notesResponse.data[0]);
                 }
@@ -71,6 +71,19 @@ export default function Notes() {
         setIsConfirmed(true);
     };
 
+    const handleDeleteNote = async (noteId) => {
+        const response = await deleteNote(noteId); // Call the delete function
+
+        if (response.success) {
+            setNotes(notes.filter(note => note.id !== noteId)); // Update the state to remove the deleted note
+            if (selectedNote?.id === noteId) {
+                setSelectedNote(null); // Reset selected note if deleted
+            }
+        } else {
+            console.error(response.message);
+        }
+    };
+
     if (isLoading) {
         return (
             <div className="flex items-center justify-center h-screen">
@@ -109,6 +122,14 @@ export default function Notes() {
                             {note.nsfw && (
                                 <AiOutlineEyeInvisible size={20} className="text-gray-500 ml-2" />
                             )}
+                            <AiOutlineDelete
+                                size={20}
+                                onClick={(e) => {
+                                    e.stopPropagation(); // Prevent the click from selecting the note
+                                    handleDeleteNote(note.id); // Call the delete function
+                                }}
+                                className="text-gray-500 cursor-pointer hover:text-primary ml-2"
+                            />
                         </li>
                     ))}
                 </ul>
