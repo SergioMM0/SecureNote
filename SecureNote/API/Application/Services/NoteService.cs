@@ -70,6 +70,7 @@ public class NoteService : INoteService {
         result.Title = note.Title;
         result.Content = note.Content;
         result.Tags = await Tag(result);
+        result.Nfsw = note.Nfsw;
         
         await _dbContext.SaveChangesAsync();
         return result;
