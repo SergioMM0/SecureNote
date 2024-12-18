@@ -7,8 +7,7 @@ export async function createNote() {
     const API_URL = process.env.API_URL;
 
     // Retrieve the JWT token from the cookies
-    const cookieStore = await cookies();
-    const token = await cookieStore.get('auth_token'); // This reads the 'auth_token' cookie
+    const token = (await cookies()).get('auth_token'); // This reads the 'auth_token' cookie
 
     if (!token) {
         return {
@@ -18,12 +17,16 @@ export async function createNote() {
     }
 
     try {
-        const response = await axios.post(`${API_URL}/Note`, {
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`, // Attach the token to the Authorization header
-            },
-        });
+        const response = await axios.post(
+            `${API_URL}/Note`, // Endpoint
+            {}, // No data payload for the POST request
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token.value}`, // Attach the token to the Authorization header
+                },
+            }
+        );
 
         return {
             success: true,
@@ -32,7 +35,7 @@ export async function createNote() {
     } catch (err) {
         return {
             success: false,
-            message: err.response?.data || err.data || "An unknown error occurred",
+            message: err.response?.data || err.message || "An unknown error occurred.",
         };
     }
 }

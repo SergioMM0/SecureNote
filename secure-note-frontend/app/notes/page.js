@@ -22,8 +22,7 @@ export default function Notes() {
     useEffect(() => {
         checkAuth().then((response) => {
             if (!response.authenticated) {
-                // TODO: Uncomment the line below to redirect to the login page
-                // router.push("/login");
+                router.push("/login");
             }
             setIsAuthLoading(false);
         });
@@ -45,6 +44,7 @@ export default function Notes() {
     }
 
     const handleNewNote = async () => {
+
         const response = await createNote();
         if (!response.success) {
             console.error(response.message);
@@ -52,6 +52,8 @@ export default function Notes() {
         }
 
         const newNote = response.data;
+        console.log(newNote);
+
 
         setNotes([...notes, newNote]);
         setSelectedNoteId(newNote.id);

@@ -92,7 +92,7 @@ if (app.Environment.IsDevelopment() || args.Contains("swagger") || args.Contains
     app.UseSwaggerUI();
 }
 
-if (args.Contains("db-init") || args.Contains("--db-init")) {
+if (app.Environment.IsDevelopment() || args.Contains("db-init") || args.Contains("--db-init")) {
     using var scope = app.Services.CreateScope();
     var dbInitializer = scope.ServiceProvider.GetRequiredService<DbInitializer>();
     await dbInitializer.Init();
