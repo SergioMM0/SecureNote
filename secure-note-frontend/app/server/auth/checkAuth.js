@@ -1,19 +1,39 @@
+// Frontend: Making a secure request to the backend
 'use server';
 
 import {cookies} from "next/headers";
 
 export async function checkAuth() {
-    const cookieStore = cookies(); // Access cookies using Next.js cookies API
-    const authToken = cookieStore.get('auth_token'); // Get the 'auth_token' cookie
-
-    // TODO: Check for expired token
-    // Additonally, this can be deemed unsafe, as we are just checking for the presence of the token
-    // We should also verify the token's signature and expiry time
+    const cookieStore = await cookies();
+    const authToken = cookieStore.get('auth_token').value;
 
     if (!authToken) {
         return {
             authenticated: false,
             message: 'No authentication token found',
+        };
+    }
+
+    let response;
+    try {
+        response = await fetch(`${process.env.API_URL}/Auth/VerifyToken`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${authToken}`,
+            },
+        });
+    } catch (err) {
+        return {
+            authenticated: false,
+            message: 'An error occurred while verifying the authentication token',
+        };
+    }
+
+    const data = await response.json();
+    if (!response.ok) {
+        return {
+            authenticated: false,
+            message: 'User is not authenticated',
         };
     }
 
