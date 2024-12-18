@@ -5,5 +5,5 @@ public class NoteDto {
     public string? Title { get; set; }
     public string? Content { get; set; }
     public string[]? Tags { get; set; } = [];
-    public bool Nfsw { get; set; }
+    public bool Nsfw { get; set; }
 }

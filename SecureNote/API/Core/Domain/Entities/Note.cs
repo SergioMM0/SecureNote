@@ -35,7 +35,7 @@ namespace API.Core.Domain.Entities {
         /// <summary>
         /// A boolean value indicating whether the note is safe for work.
         /// </summary>
-        public bool Nfsw { get; set; }
+        public bool Nsfw { get; set; }
         
         /// <summary>
         ///  An optional array of strings representing the tags linked to the note. Defaults to an empty array if not specified.

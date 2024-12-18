@@ -45,6 +45,7 @@ export default function Notes() {
                 console.log("Fetched notes:", notesResponse.data);
                 if (notesResponse.data.length > 0) {
                     setSelectedNote(notesResponse.data[0]);
+                    setIsConfirmed(!notesResponse.data[0].nsfw);
                 }
             } else {
                 console.error(notesResponse.message);
@@ -58,15 +59,15 @@ export default function Notes() {
     }, [router, setNotes]);
 
     const handleNSFWToggle = () => {
-        const updatedNotes = notes.map(note =>
-            note.id === selectedNote.id ? { ...note, nsfw: !selectedNote.nsfw } : note
-        );
-        setNotes(updatedNotes);
-        setSelectedNote(prevNote => ({ ...prevNote, nsfw: !prevNote.nsfw }));
+        const updatedNote = { ...selectedNote, nsfw: !selectedNote.nsfw };
+        setNotes(notes.map(note =>
+            note.id === selectedNote.id ? updatedNote : note
+        ));
+        setSelectedNote(updatedNote);
         setIsConfirmed(!selectedNote.nsfw);
 
         // Save the updated note
-        saveNoteDebounced({ ...selectedNote, nsfw: !selectedNote.nsfw });
+        saveNoteDebounced(updatedNote);
     };
 
     const logout = () => {
@@ -100,6 +101,7 @@ export default function Notes() {
     };
 
     const saveNote = async (updatedNote) => {
+        console.log("Saving note:", updatedNote);
         const response = await updateNote(updatedNote);
         if (!response.success) {
             console.error(response.message);

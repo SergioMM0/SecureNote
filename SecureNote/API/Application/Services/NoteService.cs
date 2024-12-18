@@ -24,7 +24,7 @@ public class NoteService : INoteService {
         var notes = await _noteRepository.GetAllByUserId(userId);
         // "Blur" content and tags for NSFW notes
         return notes.Select(note => {
-            if (note.Nfsw) {
+            if (note.Nsfw) {
                 Blur(note);
             }
             return note;
@@ -70,7 +70,7 @@ public class NoteService : INoteService {
         result.Title = note.Title;
         result.Content = note.Content;
         result.Tags = await Tag(result);
-        result.Nfsw = note.Nfsw;
+        result.Nsfw = note.Nsfw;
         
         await _dbContext.SaveChangesAsync();
         return result;

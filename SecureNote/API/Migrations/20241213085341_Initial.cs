@@ -11,7 +11,7 @@ namespace API.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<bool>(
-                name: "Nfsw",
+                name: "Nsfw",
                 table: "Notes",
                 type: "boolean",
                 nullable: false,
@@ -22,7 +22,7 @@ namespace API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Nfsw",
+                name: "Nsfw",
                 table: "Notes");
         }
     }
