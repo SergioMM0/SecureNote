@@ -30,8 +30,13 @@ public class NoteController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetAll() {
+        var userId = _context.UserId;
+        if (userId is null) {
+            return Unauthorized();
+        }
+        
         try {
-            var result = await _noteService.GetAllFromUser((Guid) _context.UserId!, false);
+            var result = await _noteService.GetAllByUserId((Guid) userId);
             return Ok(_mapper.Map<List<NoteDto>>(result));
         }
         catch (Exception e) {

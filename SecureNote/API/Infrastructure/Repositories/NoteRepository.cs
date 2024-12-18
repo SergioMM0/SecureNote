@@ -11,9 +11,9 @@ public class NoteRepository : INoteRepository {
         _db = appDbContext;
     }
 
-    public async Task<IEnumerable<Note>> GetAllByUserId(Guid userId, bool nfsw) {
+    public async Task<IEnumerable<Note>> GetAllByUserId(Guid userId) {
         return await _db.Notes
-            .Where(n => n.UserId == userId && n.Nfsw == nfsw)
+            .Where(n => n.UserId == userId)
             .ToListAsync();
     }
     

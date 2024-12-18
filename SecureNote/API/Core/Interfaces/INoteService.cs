@@ -3,7 +3,7 @@
 namespace API.Core.Interfaces;
 
 public interface INoteService {
-    Task<IEnumerable<Note>> GetAllFromUser(Guid userId, bool nfsw);
+    Task<IEnumerable<Note>> GetAllByUserId(Guid userId);
     Task<Note?> Get(Guid id);
     Task<Note> Create();
     Task<Note> Update(Note note);

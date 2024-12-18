@@ -20,8 +20,8 @@ public class NoteService : INoteService {
         _currentContext = currentContext;
     }
     
-    public Task<IEnumerable<Note>> GetAllFromUser(Guid userId, bool nfsw) {
-        return _noteRepository.GetAllByUserId(userId, nfsw);
+    public Task<IEnumerable<Note>> GetAllByUserId(Guid userId) {
+        return _noteRepository.GetAllByUserId(userId);
     }
     
     public async Task<Note?> Get(Guid id) {
