@@ -31,8 +31,17 @@ public class NoteService : INoteService {
         });
     }
     
-    public async Task<Note?> Get(Guid id) {
-        return await _noteRepository.Get(id);
+    public async Task<Note?> Get(Guid id, bool blur = true) {
+        var note = await _noteRepository.Get(id);
+        if (note is null) {
+            return null;
+        }
+
+        if (note.Nsfw && blur) {
+            Blur(note);
+        }
+        
+        return note;
     }
     
     // Helper function to remove Content and Tags from a Note if it is marked as NSFW

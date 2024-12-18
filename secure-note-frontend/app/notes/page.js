@@ -10,7 +10,8 @@ import { checkAuth } from "@/app/server/auth/checkAuth";
 import { createNote } from "@/app/server/note/createNote";
 import { getAllNotes } from "@/app/server/note/getAllNotes";
 import { deleteNote } from "@/app/server/note/deleteNote";
-import { updateNote } from "@/app/server/note/updateNote"; // Import the updateNote function
+import { updateNote } from "@/app/server/note/updateNote";
+import {getNote} from "@/app/server/note/getNote"; // Import the updateNote function
 
 // Utility function for debouncing
 function debounce(func, delay) {
@@ -69,6 +70,18 @@ export default function Notes() {
         // Save the updated note
         saveNoteDebounced(updatedNote);
     };
+
+    const loadNsfwNote = async () => {
+        const response = await getNote(selectedNote.id, false);
+        if (!response.success) {
+            console.error(response.message);
+            return;
+        }
+
+        console.log("Loaded NSFW note:", response.data);
+        setSelectedNote(response.data);
+        setIsConfirmed(true);
+    }
 
     const logout = () => {
         router.push("/login");
@@ -192,7 +205,7 @@ export default function Notes() {
                             The note you're trying to view contains content that may not be suitable for all audiences.
                         </p>
                         <button
-                            onClick={() => setIsConfirmed(true)}
+                            onClick={() => loadNsfwNote()}
                             className="px-4 py-2 bg-red-600 text-white rounded-lg shadow hover:bg-red-700 transition"
                         >
                             View Content
