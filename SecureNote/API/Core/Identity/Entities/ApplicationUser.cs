@@ -1,5 +1,4 @@
 ﻿using API.Core.Domain.Entities;
-using Dynamitey;
 using Microsoft.AspNetCore.Identity;
 
 namespace API.Core.Identity.Entities;
