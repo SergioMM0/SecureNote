@@ -89,4 +89,36 @@ public class AuthController : ControllerBase {
         }
         return BadRequest(result.Errors);
     }
+    
+    // Endpoint to verify the JWT token
+    [HttpPost("VerifyToken")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public IActionResult VerifyToken([FromHeader] string authorization)
+    {
+        // Check if Authorization header exists
+        if (string.IsNullOrEmpty(authorization) || !authorization.StartsWith("Bearer "))
+        {
+            return Unauthorized(new { message = "No token provided" });
+        }
+
+        var token = authorization.Substring("Bearer ".Length);
+
+        try
+        {
+            // Validate the token using the JWT service
+            var claims = _jwtService.ValidateJwtToken(token);
+
+            if (claims == null)
+            {
+                return Unauthorized(new { message = "Invalid or expired token" });
+            }
+
+            return Ok(new { message = "Token is valid" });
+        }
+        catch (Exception ex)
+        {
+            return Unauthorized(new { message = $"Token validation failed: {ex.Message}" });
+        }
+    }
 }

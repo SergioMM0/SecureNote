@@ -31,7 +31,7 @@ namespace API.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("text");
 
-                    b.Property<bool>("Nfsw")
+                    b.Property<bool>("Nsfw")
                         .HasColumnType("boolean");
 
                     b.PrimitiveCollection<string[]>("Tags")

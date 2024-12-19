@@ -7,23 +7,24 @@ export async function register(dto) {
     const API_URL = process.env.API_URL;
 
     try {
+        // Make the API request
         const response = await axios.post(`${API_URL}/Auth/Register`, dto, {
             headers: {
                 "Content-Type": "application/json",
             },
         });
 
-        const token = response.data.token; // Assuming the token is in `response.data.token`
+        const { token } = response.data; // Assuming the token is returned as `token`
 
-        // Set the token as an HTTP-only cookie
+        // Set the token as a secure, HTTP-only cookie with expiration matching the JWT
         cookies().set({
             name: 'auth_token',
             value: token,
-            httpOnly: true, // Ensure it's only accessible by the server
-            secure: process.env.NODE_ENV === 'production', // Use secure flag in production
-            sameSite: 'strict', // Restrict cross-site cookie usage
-            path: '/', // Make it available for the whole domain
-            //maxAge: 60 * 60 * 24 * 7, // Optional, 7 days here
+            httpOnly: true, // Prevent JavaScript access
+            secure: process.env.NODE_ENV === 'production', // Use HTTPS in production
+            sameSite: 'strict', // Prevent CSRF
+            path: '/', // Available across the domain
+            maxAge: 60 * 60 // Set cookie lifetime to 1 hour
         });
 
         return {
@@ -31,9 +32,15 @@ export async function register(dto) {
             data: response.data,
         };
     } catch (err) {
+        // Log error in development mode
+        if (process.env.NODE_ENV !== 'production') {
+            console.error('Registration error:', err.response?.data || err.message);
+        }
+
+        // Return a secure error message
         return {
             success: false,
-            message: err.response?.data || "An unknown error occurred",
+            message: "An error occurred during registration. Please try again later.",
         };
     }
 }

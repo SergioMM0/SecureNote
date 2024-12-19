@@ -20,12 +20,35 @@ public class NoteService : INoteService {
         _currentContext = currentContext;
     }
     
-    public Task<IEnumerable<Note>> GetAllFromUser(Guid userId, bool nfsw) {
-        return _noteRepository.GetAllByUserId(userId, nfsw);
+    public async Task<IEnumerable<Note>> GetAllByUserId(Guid userId) {
+        var notes = await _noteRepository.GetAllByUserId(userId);
+        // "Blur" content and tags for NSFW notes
+        return notes.Select(note => {
+            if (note.Nsfw) {
+                Blur(note);
+            }
+            return note;
+        });
     }
     
-    public async Task<Note?> Get(Guid id) {
-        return await _noteRepository.Get(id);
+    public async Task<Note?> Get(Guid id, bool blur = true) {
+        var note = await _noteRepository.Get(id);
+        if (note is null) {
+            return null;
+        }
+
+        if (note.Nsfw && blur) {
+            Blur(note);
+        }
+        
+        return note;
+    }
+    
+    // Helper function to remove Content and Tags from a Note if it is marked as NSFW
+    // This is so that NSFW notes are not sent to the frontend unless explicitly requested
+    private void Blur(Note note) {
+        note.Content = null;
+        note.Tags = null;
     }
     
     /// <summary>
@@ -56,6 +79,7 @@ public class NoteService : INoteService {
         result.Title = note.Title;
         result.Content = note.Content;
         result.Tags = await Tag(result);
+        result.Nsfw = note.Nsfw;
         
         await _dbContext.SaveChangesAsync();
         return result;

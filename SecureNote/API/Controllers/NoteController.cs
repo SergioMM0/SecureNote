@@ -30,8 +30,13 @@ public class NoteController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetAll() {
+        var userId = _context.UserId;
+        if (userId is null) {
+            return Unauthorized();
+        }
+        
         try {
-            var result = await _noteService.GetAllFromUser((Guid) _context.UserId!, false);
+            var result = await _noteService.GetAllByUserId((Guid) userId);
             return Ok(_mapper.Map<List<NoteDto>>(result));
         }
         catch (Exception e) {
@@ -44,10 +49,17 @@ public class NoteController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetById([FromRoute] Guid id) {
+    public async Task<IActionResult> GetById([FromRoute] Guid id, [FromQuery] bool blur = true) {
+        var userId = _context.UserId;
+        if (userId is null) {
+            return Unauthorized();
+        }
+        
         try {
-            var result = await _noteService.Get(id);
-            if (result is null) {
+            var result = await _noteService.Get(id, blur);
+            // When user id does not match the note's user id, return 404 instead of 403
+            // This is not to leak the existence of notes that the user does not have access to
+            if (result is null || result.UserId != userId) {
                 return NotFound();
             }
             return Ok(_mapper.Map<NoteDto>(result));

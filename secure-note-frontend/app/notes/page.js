@@ -1,15 +1,26 @@
 'use client';
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import ReactMarkdown from "react-markdown";
-import { AiOutlineEyeInvisible, AiOutlineLogout, AiOutlineWarning, AiOutlineFile, AiOutlineDelete } from "react-icons/ai"; // Import the trash icon
+import { AiOutlineEyeInvisible, AiOutlineLogout, AiOutlineWarning, AiOutlineFile, AiOutlineDelete } from "react-icons/ai";
 import { useAtom } from "jotai";
 import { notesAtom } from "../atoms/notesAtom";
 import { useRouter } from "next/navigation";
 import { checkAuth } from "@/app/server/auth/checkAuth";
 import { createNote } from "@/app/server/note/createNote";
 import { getAllNotes } from "@/app/server/note/getAllNotes";
-import { deleteNote } from "@/app/server/note/deleteNote"; // Assuming you have created a deleteNote function
+import { deleteNote } from "@/app/server/note/deleteNote";
+import { updateNote } from "@/app/server/note/updateNote";
+import {getNote} from "@/app/server/note/getNote"; // Import the updateNote function
+
+// Utility function for debouncing
+function debounce(func, delay) {
+    let timer;
+    return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => func(...args), delay);
+    };
+}
 
 export default function Notes() {
     const router = useRouter();
@@ -25,14 +36,17 @@ export default function Notes() {
                 router.push("/login");
                 return;
             }
+            console.log("User is authenticated.");
         };
 
         const fetchNotes = async () => {
             const notesResponse = await getAllNotes();
             if (notesResponse.success) {
                 setNotes(notesResponse.data);
+                console.log("Fetched notes:", notesResponse.data);
                 if (notesResponse.data.length > 0) {
                     setSelectedNote(notesResponse.data[0]);
+                    setIsConfirmed(!notesResponse.data[0].nsfw);
                 }
             } else {
                 console.error(notesResponse.message);
@@ -46,13 +60,28 @@ export default function Notes() {
     }, [router, setNotes]);
 
     const handleNSFWToggle = () => {
-        const updatedNotes = notes.map(note =>
-            note.id === selectedNote.id ? { ...note, nsfw: !selectedNote.nsfw } : note
-        );
-        setNotes(updatedNotes);
-        setSelectedNote(prevNote => ({ ...prevNote, nsfw: !prevNote.nsfw }));
+        const updatedNote = { ...selectedNote, nsfw: !selectedNote.nsfw };
+        setNotes(notes.map(note =>
+            note.id === selectedNote.id ? updatedNote : note
+        ));
+        setSelectedNote(updatedNote);
         setIsConfirmed(!selectedNote.nsfw);
+
+        // Save the updated note
+        saveNoteDebounced(updatedNote);
     };
+
+    const loadNsfwNote = async () => {
+        const response = await getNote(selectedNote.id, false);
+        if (!response.success) {
+            console.error(response.message);
+            return;
+        }
+
+        console.log("Loaded NSFW note:", response.data);
+        setSelectedNote(response.data);
+        setIsConfirmed(true);
+    }
 
     const logout = () => {
         router.push("/login");
@@ -72,16 +101,40 @@ export default function Notes() {
     };
 
     const handleDeleteNote = async (noteId) => {
-        const response = await deleteNote(noteId); // Call the delete function
+        const response = await deleteNote(noteId);
 
         if (response.success) {
-            setNotes(notes.filter(note => note.id !== noteId)); // Update the state to remove the deleted note
+            setNotes(notes.filter(note => note.id !== noteId));
             if (selectedNote?.id === noteId) {
-                setSelectedNote(null); // Reset selected note if deleted
+                setSelectedNote(null);
             }
         } else {
             console.error(response.message);
         }
+    };
+
+    const saveNote = async (updatedNote) => {
+        console.log("Saving note:", updatedNote);
+        const response = await updateNote(updatedNote);
+        if (!response.success) {
+            console.error(response.message);
+        }
+        console.log("Note saved:", response.data);
+    };
+
+    // Create a debounced version of the saveNote function
+    const saveNoteDebounced = useCallback(debounce(saveNote, 500), []);
+
+    const handleTitleChange = (title) => {
+        const updatedNote = { ...selectedNote, title };
+        setSelectedNote(updatedNote);
+        saveNoteDebounced(updatedNote);
+    };
+
+    const handleContentChange = (content) => {
+        const updatedNote = { ...selectedNote, content };
+        setSelectedNote(updatedNote);
+        saveNoteDebounced(updatedNote);
     };
 
     if (isLoading) {
@@ -125,8 +178,8 @@ export default function Notes() {
                             <AiOutlineDelete
                                 size={20}
                                 onClick={(e) => {
-                                    e.stopPropagation(); // Prevent the click from selecting the note
-                                    handleDeleteNote(note.id); // Call the delete function
+                                    e.stopPropagation();
+                                    handleDeleteNote(note.id);
                                 }}
                                 className="text-gray-500 cursor-pointer hover:text-primary ml-2"
                             />
@@ -152,7 +205,7 @@ export default function Notes() {
                             The note you're trying to view contains content that may not be suitable for all audiences.
                         </p>
                         <button
-                            onClick={() => setIsConfirmed(true)}
+                            onClick={() => loadNsfwNote()}
                             className="px-4 py-2 bg-red-600 text-white rounded-lg shadow hover:bg-red-700 transition"
                         >
                             View Content
@@ -165,13 +218,13 @@ export default function Notes() {
                             <input
                                 type="text"
                                 value={selectedNote?.title || ''}
-                                onChange={(e) => setSelectedNote({ ...selectedNote, title: e.target.value })}
+                                onChange={(e) => handleTitleChange(e.target.value)}
                                 className="input input-bordered mb-4"
                                 placeholder="Enter note title"
                             />
                             <textarea
                                 value={selectedNote?.content || ''}
-                                onChange={(e) => setSelectedNote({ ...selectedNote, content: e.target.value })}
+                                onChange={(e) => handleContentChange(e.target.value)}
                                 className="textarea textarea-bordered h-full"
                                 placeholder="Write your markdown here..."
                             />
@@ -187,7 +240,7 @@ export default function Notes() {
                                     <label className="text-sm text-base-content mr-2">NSFW</label>
                                     <input
                                         type="checkbox"
-                                        checked={selectedNote?.nsfw}
+                                        checked={!!selectedNote?.nsfw}
                                         onChange={handleNSFWToggle}
                                         className="toggle toggle-error"
                                     />
