@@ -1,7 +1,7 @@
 ﻿using System;
 using API.Application.Services;
+using API.Core.Domain.Entities;
 using API.Infrastructure.Repositories;
-using Domain;
 using TechTalk.SpecFlow;
 using Xunit;
 
