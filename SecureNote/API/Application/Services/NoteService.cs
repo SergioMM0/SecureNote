@@ -1,19 +1,19 @@
-﻿using API.Application.Interfaces.Repositories;
+﻿using API.Application.Interfaces;
+using API.Application.Interfaces.Repositories;
 using API.Core.Domain.Context;
 using API.Core.Domain.Entities;
 using API.Core.Domain.Exception;
 using API.Core.Interfaces;
-using API.Infrastructure;
 
 namespace API.Application.Services;
 
 public class NoteService : INoteService {
     private readonly INoteRepository _noteRepository;
     private readonly ITagRepository _tagRepository;
-    private readonly AppDbContext _dbContext;
+    private readonly IAppDbContext _dbContext;
     private readonly CurrentContext _currentContext;
     
-    public NoteService(INoteRepository noteRepository, ITagRepository tagRepository, AppDbContext dbContext, CurrentContext currentContext) {
+    public NoteService(INoteRepository noteRepository, ITagRepository tagRepository, IAppDbContext dbContext, CurrentContext currentContext) {
         _noteRepository = noteRepository;
         _tagRepository = tagRepository;
         _dbContext = dbContext;
@@ -104,7 +104,7 @@ public class NoteService : INoteService {
     /// An array of strings representing all the matched tags based on the note's title and content.
     /// If no tags match or the note is invalid (has no title AND content), returns an empty array.
     /// </returns>
-    private async Task<string[]> Tag(Note note) {
+    public async Task<string[]> Tag(Note note) {
         // Validate the note's content and title
         if (string.IsNullOrWhiteSpace(note.Title) && string.IsNullOrWhiteSpace(note.Content)) {
             return [];

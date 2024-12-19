@@ -18,7 +18,7 @@ public class CurrentContext {
     /// <summary>
     /// The Id of the user who made the current request, from the HttpContext.
     /// </summary>
-    public virtual Guid? UserId { get; private set; }
+    public virtual Guid? UserId { get; set; }
 
     /// <summary>
     /// List of roles associated with the current user from the HttpContext.
