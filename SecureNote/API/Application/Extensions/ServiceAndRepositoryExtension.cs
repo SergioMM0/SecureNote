@@ -1,4 +1,5 @@
-﻿using API.Application.Interfaces.Repositories;
+﻿using API.Application.Interfaces;
+using API.Application.Interfaces.Repositories;
 using API.Application.Services;
 using API.Core.Domain.Context;
 using API.Core.Interfaces;
@@ -28,7 +29,7 @@ public static class ServiceAndRepositoryExtension {
         services.AddScoped<DbInitializer>();
 
         // DO NOT CHANGE TO Transient or Singleton
-        services.AddScoped<AppDbContext>();
+        services.AddScoped<IAppDbContext, AppDbContext>();
 
         return services;
     }
