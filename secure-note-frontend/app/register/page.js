@@ -11,14 +11,47 @@ import { register } from "@/app/server/auth/register";
 export default function Register() {
     const router = useRouter();
     const setAuthState = useSetAtom(authAtom);
-    const [email, setEmail] = useState("test@example.com");
-    const [username, setUsername] = useState("testuser");
-    const [password, setPassword] = useState("Test123!");
-    const [confirmPassword, setConfirmPassword] = useState("Test123!");
+    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
+
+    const validateUsername = (username) => {
+        const allowedCharacters = /^[a-zA-Z0-9\-._@+]+$/;
+        return allowedCharacters.test(username);
+    };
+
+    const validatePassword = (password) => {
+        const minLength = 6;
+        const requireDigit = /\d/;
+        const requireLowercase = /[a-z]/;
+        const requireUppercase = /[A-Z]/;
+        const requireNonAlphanumeric = /[\W_]/; // Matches non-alphanumeric characters
+
+        return (
+            password.length >= minLength &&
+            requireDigit.test(password) &&
+            requireLowercase.test(password) &&
+            requireUppercase.test(password) &&
+            requireNonAlphanumeric.test(password)
+        );
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!validateUsername(username)) {
+            setError("Username can only contain letters, numbers, and the following: -._@+");
+            return;
+        }
+
+        if (!validatePassword(password)) {
+            setError(
+                "Password must be at least 6 characters long, contain at least one digit, one lowercase letter, one uppercase letter, and one non-alphanumeric character."
+            );
+            return;
+        }
 
         if (password !== confirmPassword) {
             setError("Passwords do not match!");
