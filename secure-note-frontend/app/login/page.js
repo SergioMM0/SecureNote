@@ -4,33 +4,50 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import {useSetAtom} from "jotai/index";
-import {authAtom} from "@/app/atoms/authAtom";
-import {login} from "@/app/server/auth/login"; // Import the useRouter hook
+import { useSetAtom } from "jotai";
+import { authAtom } from "@/app/atoms/authAtom";
+import { login } from "@/app/server/auth/login";
 
 export default function Login() {
-    const router = useRouter(); // Initialize useRouter
+    const router = useRouter();
     const setAuthState = useSetAtom(authAtom);
-    const [email, setEmail] = useState("test@example.com");
-    const [password, setPassword] = useState("Test123!");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
 
     // Handle form submission
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevent the default form submission behavior
+        e.preventDefault();
 
-        // Optional: Add validation or authentication logic here
-        if (!email || !password) {
-            alert("Please fill out both fields.");
-            return;
+        // Reset errors
+        setEmailError("");
+        setPasswordError("");
+
+        // Validate fields
+        let isValid = true;
+
+        if (!email) {
+            setEmailError("Email is required.");
+            isValid = false;
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+            setEmailError("Please enter a valid email address.");
+            isValid = false;
         }
 
-        const dto = {email, password};
+        if (!password) {
+            setPasswordError("Password is required.");
+            isValid = false;
+        }
+
+        if (!isValid) return;
+
+        const dto = { email, password };
 
         const result = await login(dto);
 
         if (!result.success) {
-            // TODO: Handle error
-            //setError(result.message);
+            setPasswordError(result.message || "Login failed. Please check your credentials.");
             return;
         }
 
@@ -71,10 +88,11 @@ export default function Login() {
                             type="email"
                             id="email"
                             placeholder="Enter your email"
-                            className="w-full p-3 mt-1 border rounded-md focus:ring-2 focus:ring-primary"
+                            className={`w-full p-3 mt-1 border rounded-md focus:ring-2 ${emailError ? 'border-red-600' : 'focus:ring-primary'}`}
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
+                        {emailError && <div className="text-red-600 text-sm">{emailError}</div>}
                     </div>
 
                     <div>
@@ -85,10 +103,11 @@ export default function Login() {
                             type="password"
                             id="password"
                             placeholder="Enter your password"
-                            className="w-full p-3 mt-1 border rounded-md focus:ring-2 focus:ring-primary"
+                            className={`w-full p-3 mt-1 border rounded-md focus:ring-2 ${passwordError ? 'border-red-600' : 'focus:ring-primary'}`}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
+                        {passwordError && <div className="text-red-600 text-sm">{passwordError}</div>}
                     </div>
 
                     <div className="flex items-center justify-between">
