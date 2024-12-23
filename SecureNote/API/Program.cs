@@ -5,12 +5,19 @@ using API.Core.Configuration;
 using API.Core.Domain.Mapping;
 using API.Infrastructure;
 using API.Infrastructure.Initializers;
+using AspNetCoreRateLimit;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add Rate Limiting configuration
+builder.Services.AddMemoryCache();
+builder.Services.Configure<IpRateLimitOptions>(builder.Configuration.GetSection("IpRateLimiting"));
+builder.Services.AddInMemoryRateLimiting(); // In-memory rate limiting
+builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
 
 builder.Services.Configure<MfaSettings>(builder.Configuration.GetSection("Mfa"));
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
@@ -81,6 +88,8 @@ builder.Services.AddDbContext<AppDbContext>(db => {
 });
 
 var app = builder.Build();
+
+app.UseIpRateLimiting();
 
 app.UseMiddleware<CurrentContextMiddleware>();
 
