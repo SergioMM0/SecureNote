@@ -83,6 +83,7 @@ public class NoteController : ControllerBase {
         }
     }
     
+    [AllowAnonymous]
     [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(NoteDto))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
