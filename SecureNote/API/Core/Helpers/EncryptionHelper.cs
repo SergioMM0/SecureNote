@@ -8,7 +8,7 @@ public static class EncryptionHelper {
         var aesKey = NormalizeKey(key);
         using var aes = Aes.Create();
         aes.Key = aesKey;
-        aes.GenerateIV(); // Random IV for each encryption
+        aes.GenerateIV();
         using var encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
         using var ms = new MemoryStream();
         using (var cryptoStream = new CryptoStream(ms, encryptor, CryptoStreamMode.Write)) {
@@ -38,7 +38,6 @@ public static class EncryptionHelper {
     }
 
     private static byte[] NormalizeKey(string key) {
-        // Pad or truncate key to 32 bytes (AES-256)
         return Encoding.UTF8.GetBytes(key.PadRight(32, ' ').Substring(0, 32));
     }
 }
