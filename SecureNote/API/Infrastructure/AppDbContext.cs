@@ -32,6 +32,10 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, 
         builder.Entity<Note>()
             .Property(n => n.Content)
             .HasConversion(new EncryptedValueConverter(_encryptionSettings.Value.MasterKey)!);
+        
+        builder.Entity<Note>()
+            .Property(n => n.Title)
+            .HasConversion(new EncryptedValueConverter(_encryptionSettings.Value.MasterKey)!);
     }
     /*
     public void Attach<T>(T entity) where T : class {
