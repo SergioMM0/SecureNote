@@ -21,6 +21,7 @@ builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>()
 
 builder.Services.Configure<MfaSettings>(builder.Configuration.GetSection("Mfa"));
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
+builder.Services.Configure<EncryptionSettings>(builder.Configuration.GetSection("Encryption"));
 
 // Add authentication
 builder.Services.AddAuthentication(options => {
