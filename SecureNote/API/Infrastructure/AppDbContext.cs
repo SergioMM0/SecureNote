@@ -9,7 +9,6 @@ using Microsoft.Extensions.Options;
 
 namespace API.Infrastructure;
 
-
 public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>{
     public DbSet<Note> Notes { get; set; }
     public DbSet<Tag> Tags { get; set; }
