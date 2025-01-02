@@ -29,7 +29,7 @@ public static class ServiceAndRepositoryExtension {
         services.AddScoped<DbInitializer>();
 
         // DO NOT CHANGE TO Transient or Singleton
-        services.AddScoped<AppDbContext>();
+        services.AddScoped<IAppDbContext, AppDbContext>();
 
         return services;
     }

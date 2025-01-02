@@ -9,7 +9,7 @@ using Microsoft.Extensions.Options;
 
 namespace API.Infrastructure;
 
-public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>{
+public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>, IAppDbContext {
     public DbSet<Note> Notes { get; set; }
     public DbSet<Tag> Tags { get; set; }
     private readonly IOptions<EncryptionSettings> _encryptionSettings;
@@ -37,9 +37,9 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, 
             .Property(n => n.Title)
             .HasConversion(new EncryptedValueConverter(_encryptionSettings.Value.MasterKey)!);
     }
-    /*
-    public void Attach<T>(T entity) where T : class {
-        throw new NotImplementedException();
+    
+    public void Attach<T>(T entity) where T : class
+    {
+        Entry(entity).State = EntityState.Modified;
     }
-    */
 }

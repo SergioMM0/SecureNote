@@ -11,10 +11,10 @@ namespace API.Application.Services;
 public class NoteService : INoteService {
     private readonly INoteRepository _noteRepository;
     private readonly ITagRepository _tagRepository;
-    private readonly AppDbContext _dbContext;
+    private readonly IAppDbContext _dbContext;
     private readonly CurrentContext _currentContext;
     
-    public NoteService(INoteRepository noteRepository, ITagRepository tagRepository, AppDbContext dbContext, CurrentContext currentContext) {
+    public NoteService(INoteRepository noteRepository, ITagRepository tagRepository, IAppDbContext dbContext, CurrentContext currentContext) {
         _noteRepository = noteRepository;
         _tagRepository = tagRepository;
         _dbContext = dbContext;
