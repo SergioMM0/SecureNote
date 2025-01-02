@@ -6,7 +6,7 @@ using API.Core.Domain.Entities;
 using FluentAssertions;
 using Moq;
 
-public class NoteServiceTagMethodTests
+public class NoteServiceTests
 {
     private readonly Mock<INoteRepository> _mockNoteRepo;
     private readonly Mock<ITagRepository> _mockTagRepo;
@@ -14,7 +14,7 @@ public class NoteServiceTagMethodTests
     private readonly Mock<CurrentContext> _mockCurrentContext;
     private readonly NoteService _service;
 
-    public NoteServiceTagMethodTests()
+    public NoteServiceTests()
     {
         _mockNoteRepo = new Mock<INoteRepository>();
         _mockTagRepo = new Mock<ITagRepository>();
