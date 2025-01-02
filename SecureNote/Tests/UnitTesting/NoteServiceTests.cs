@@ -3,6 +3,7 @@ using API.Application.Interfaces.Repositories;
 using API.Application.Services;
 using API.Core.Domain.Context;
 using API.Core.Domain.Entities;
+using API.Core.Domain.Exception;
 using FluentAssertions;
 using Moq;
 
@@ -156,5 +157,117 @@ public class NoteServiceTests {
 
         // Assert
         result.Should().Contain("Learning");
+    }
+    
+    [Fact]
+    public async Task Create_ShouldReturnNewNote() {
+        // Arrange
+        var userId = Guid.NewGuid();
+        _mockCurrentContext.Setup(ctx => ctx.UserId).Returns(userId);
+
+        var newNote = new Note { Id = Guid.NewGuid(), UserId = userId };
+        _mockNoteRepo.Setup(repo => repo.Create(It.IsAny<Note>())).ReturnsAsync(newNote);
+
+        // Act
+        var result = await _service.Create();
+
+        // Assert
+        result.Should().NotBeNull();
+        result.UserId.Should().Be(userId);
+        _mockDbContext.Verify(db => db.SaveChangesAsync(default), Times.Once);
+    }
+
+    [Fact]
+    public async Task Get_ShouldReturnNote_WhenIdExists() {
+        // Arrange
+        var noteId = Guid.NewGuid();
+        var note = new Note { Id = noteId, Title = "Test Note", Content = "This is a test note." };
+        _mockNoteRepo.Setup(repo => repo.Get(noteId)).ReturnsAsync(note);
+
+        // Act
+        var result = await _service.Get(noteId);
+
+        // Assert
+        result.Should().NotBeNull();
+        result!.Id.Should().Be(noteId);
+    }
+
+    [Fact]
+    public async Task Get_ShouldReturnNull_WhenIdDoesNotExist() {
+        // Arrange
+        var noteId = Guid.NewGuid();
+        _mockNoteRepo.Setup(repo => repo.Get(noteId)).ReturnsAsync((Note?)null);
+
+        // Act
+        var result = await _service.Get(noteId);
+
+        // Assert
+        result.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task Update_ShouldUpdateNote_WhenIdExists() {
+        // Arrange
+        var noteId = Guid.NewGuid();
+        var existingNote = new Note { Id = noteId, Title = "Old Title", Content = "Old Content" };
+        var updatedNote = new Note { Id = noteId, Title = "New Title", Content = "New Content" };
+
+        _mockNoteRepo.Setup(repo => repo.Get(noteId)).ReturnsAsync(existingNote);
+        _mockDbContext.Setup(db => db.Attach(existingNote));
+
+        // Act
+        var result = await _service.Update(updatedNote);
+
+        // Assert
+        result.Should().NotBeNull();
+        result.Id.Should().Be(noteId);
+        result.Title.Should().Be(updatedNote.Title);
+        result.Content.Should().Be(updatedNote.Content);
+        _mockDbContext.Verify(db => db.SaveChangesAsync(default), Times.Once);
+    }
+
+    [Fact]
+    public async Task Update_ShouldThrowNotFoundException_WhenIdDoesNotExist() {
+        // Arrange
+        var noteId = Guid.NewGuid();
+        var updatedNote = new Note { Id = noteId, Title = "New Title", Content = "New Content" };
+
+        _mockNoteRepo.Setup(repo => repo.Get(noteId)).ReturnsAsync((Note?)null);
+
+        // Act
+        var act = async () => await _service.Update(updatedNote);
+
+        // Assert
+        await act.Should().ThrowAsync<NotFoundException>()
+            .WithMessage($"Note with id: {noteId} not found.");
+    }
+
+    [Fact]
+    public async Task Delete_ShouldRemoveNote_WhenIdExists() {
+        // Arrange
+        var noteId = Guid.NewGuid();
+        var note = new Note { Id = noteId };
+        _mockNoteRepo.Setup(repo => repo.Get(noteId)).ReturnsAsync(note);
+
+        // Act
+        await _service.Delete(noteId);
+
+        // Assert
+        _mockNoteRepo.Verify(repo => repo.Delete(note), Times.Once);
+        _mockDbContext.Verify(db => db.SaveChangesAsync(default), Times.Once);
+    }
+
+    [Fact]
+    public async Task Delete_ShouldThrowNotFoundException_WhenIdDoesNotExist() {
+        // Arrange
+        var noteId = Guid.NewGuid();
+        _mockNoteRepo.Setup(repo => repo.Get(noteId)).ReturnsAsync((Note?)null);
+
+        // Act
+        var act = async () => await _service.Delete(noteId);
+
+        // Assert
+        await act.Should().ThrowAsync<NotFoundException>()
+            .WithMessage($"Note with id: {noteId} not found.");
     }
 }
