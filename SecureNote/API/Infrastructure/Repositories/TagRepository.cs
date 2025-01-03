@@ -1,13 +1,14 @@
-﻿using API.Application.Interfaces.Repositories;
+﻿using API.Application.Interfaces;
+using API.Application.Interfaces.Repositories;
 using API.Core.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Infrastructure.Repositories;
 
 public class TagRepository : ITagRepository {
-    private readonly AppDbContext _dbContext;
+    private readonly IAppDbContext _dbContext;
     
-    public TagRepository(AppDbContext dbContext) {
+    public TagRepository(IAppDbContext dbContext) {
         _dbContext = dbContext;
     }
 
