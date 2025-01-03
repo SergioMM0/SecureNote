@@ -100,8 +100,8 @@ namespace CucumberTesting.Features
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Both title and content empty", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 4
-  this.ScenarioInitialize(scenarioInfo);
+#line 5
+    this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -110,8 +110,8 @@ namespace CucumberTesting.Features
             else
             {
                 await this.ScenarioStartAsync();
-#line 5
-    await testRunner.GivenAsync("a note with the title \"\" and the content \"\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line 6
+        await testRunner.GivenAsync("a note with the title \"\" and the content \"\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
                 global::Reqnroll.Table table1 = new global::Reqnroll.Table(new string[] {
                             "Name",
@@ -125,16 +125,16 @@ namespace CucumberTesting.Features
                 table1.AddRow(new string[] {
                             "Meeting",
                             "meeting, discuss, review"});
-#line 6
-    await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table1, "And ");
+#line 7
+        await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table1, "And ");
 #line hidden
-#line 11
-    await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 12
+        await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
                 global::Reqnroll.Table table2 = new global::Reqnroll.Table(new string[] {
                             ""});
-#line 12
-    await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table2, "Then ");
+#line 13
+        await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table2, "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -148,8 +148,8 @@ namespace CucumberTesting.Features
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Both title and content whitespace", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 16
-  this.ScenarioInitialize(scenarioInfo);
+#line 18
+    this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -158,8 +158,8 @@ namespace CucumberTesting.Features
             else
             {
                 await this.ScenarioStartAsync();
-#line 17
-    await testRunner.GivenAsync("a note with the title \" \" and the content \"  \"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line 19
+        await testRunner.GivenAsync("a note with the title \" \" and the content \"  \"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
                 global::Reqnroll.Table table3 = new global::Reqnroll.Table(new string[] {
                             "Name",
@@ -173,16 +173,16 @@ namespace CucumberTesting.Features
                 table3.AddRow(new string[] {
                             "Meeting",
                             "meeting, discuss, review"});
-#line 18
-    await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table3, "And ");
+#line 20
+        await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table3, "And ");
 #line hidden
-#line 23
-    await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 25
+        await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
                 global::Reqnroll.Table table4 = new global::Reqnroll.Table(new string[] {
                             ""});
-#line 24
-    await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table4, "Then ");
+#line 26
+        await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table4, "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -196,8 +196,8 @@ namespace CucumberTesting.Features
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Both title and content null", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 28
-  this.ScenarioInitialize(scenarioInfo);
+#line 31
+    this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -206,8 +206,8 @@ namespace CucumberTesting.Features
             else
             {
                 await this.ScenarioStartAsync();
-#line 29
-    await testRunner.GivenAsync("a note with the title null and the content null", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line 32
+        await testRunner.GivenAsync("a note with the title null and the content null", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
                 global::Reqnroll.Table table5 = new global::Reqnroll.Table(new string[] {
                             "Name",
@@ -221,16 +221,16 @@ namespace CucumberTesting.Features
                 table5.AddRow(new string[] {
                             "Meeting",
                             "meeting, discuss, review"});
-#line 30
-    await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table5, "And ");
+#line 33
+        await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table5, "And ");
 #line hidden
-#line 35
-    await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 38
+        await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
                 global::Reqnroll.Table table6 = new global::Reqnroll.Table(new string[] {
                             ""});
-#line 36
-    await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table6, "Then ");
+#line 39
+        await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table6, "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -244,8 +244,8 @@ namespace CucumberTesting.Features
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Title empty, content with keyword", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 40
-  this.ScenarioInitialize(scenarioInfo);
+#line 44
+    this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -254,8 +254,8 @@ namespace CucumberTesting.Features
             else
             {
                 await this.ScenarioStartAsync();
-#line 41
-    await testRunner.GivenAsync("a note with the title \"\" and the content \"This is a task\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line 45
+        await testRunner.GivenAsync("a note with the title \"\" and the content \"This is a task\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
                 global::Reqnroll.Table table7 = new global::Reqnroll.Table(new string[] {
                             "Name",
@@ -269,16 +269,18 @@ namespace CucumberTesting.Features
                 table7.AddRow(new string[] {
                             "Meeting",
                             "meeting, discuss, review"});
-#line 42
-    await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table7, "And ");
+#line 46
+        await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table7, "And ");
 #line hidden
-#line 47
-    await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 51
+        await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
                 global::Reqnroll.Table table8 = new global::Reqnroll.Table(new string[] {
+                            "Tags"});
+                table8.AddRow(new string[] {
                             "Task"});
-#line 48
-    await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table8, "Then ");
+#line 52
+        await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table8, "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -292,8 +294,8 @@ namespace CucumberTesting.Features
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Title null, content with keywords", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 52
-  this.ScenarioInitialize(scenarioInfo);
+#line 58
+    this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -302,8 +304,8 @@ namespace CucumberTesting.Features
             else
             {
                 await this.ScenarioStartAsync();
-#line 53
-    await testRunner.GivenAsync("a note with the title null and the content \"Important meeting\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line 59
+        await testRunner.GivenAsync("a note with the title null and the content \"Important meeting\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
                 global::Reqnroll.Table table9 = new global::Reqnroll.Table(new string[] {
                             "Name",
@@ -317,16 +319,20 @@ namespace CucumberTesting.Features
                 table9.AddRow(new string[] {
                             "Meeting",
                             "meeting, discuss, review"});
-#line 54
-    await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table9, "And ");
+#line 60
+        await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table9, "And ");
 #line hidden
-#line 59
-    await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 65
+        await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
                 global::Reqnroll.Table table10 = new global::Reqnroll.Table(new string[] {
-                            "Urgent, Meeting"});
-#line 60
-    await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table10, "Then ");
+                            "Tags"});
+                table10.AddRow(new string[] {
+                            "Urgent"});
+                table10.AddRow(new string[] {
+                            "Meeting"});
+#line 66
+        await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table10, "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -340,8 +346,8 @@ namespace CucumberTesting.Features
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Content empty, title with keywords", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 64
-  this.ScenarioInitialize(scenarioInfo);
+#line 73
+    this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -350,8 +356,8 @@ namespace CucumberTesting.Features
             else
             {
                 await this.ScenarioStartAsync();
-#line 65
-    await testRunner.GivenAsync("a note with the title \"Urgent task\" and the content \"\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line 74
+        await testRunner.GivenAsync("a note with the title \"Urgent task\" and the content \"\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
                 global::Reqnroll.Table table11 = new global::Reqnroll.Table(new string[] {
                             "Name",
@@ -365,16 +371,18 @@ namespace CucumberTesting.Features
                 table11.AddRow(new string[] {
                             "Meeting",
                             "meeting, discuss, review"});
-#line 66
-    await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table11, "And ");
+#line 75
+        await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table11, "And ");
 #line hidden
-#line 71
-    await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 80
+        await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
                 global::Reqnroll.Table table12 = new global::Reqnroll.Table(new string[] {
-                            "Task, Urgent"});
-#line 72
-    await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table12, "Then ");
+                            "Tags"});
+                table12.AddRow(new string[] {
+                            "Task"});
+#line 81
+        await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table12, "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -388,8 +396,8 @@ namespace CucumberTesting.Features
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Content null, title with keyword", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 76
-  this.ScenarioInitialize(scenarioInfo);
+#line 87
+    this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -398,8 +406,8 @@ namespace CucumberTesting.Features
             else
             {
                 await this.ScenarioStartAsync();
-#line 77
-    await testRunner.GivenAsync("a note with the title \"Meeting notes\" and the content null", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line 88
+        await testRunner.GivenAsync("a note with the title \"Meeting notes\" and the content null", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
                 global::Reqnroll.Table table13 = new global::Reqnroll.Table(new string[] {
                             "Name",
@@ -413,16 +421,18 @@ namespace CucumberTesting.Features
                 table13.AddRow(new string[] {
                             "Meeting",
                             "meeting, discuss, review"});
-#line 78
-    await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table13, "And ");
+#line 89
+        await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table13, "And ");
 #line hidden
-#line 83
-    await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 94
+        await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
                 global::Reqnroll.Table table14 = new global::Reqnroll.Table(new string[] {
+                            "Tags"});
+                table14.AddRow(new string[] {
                             "Meeting"});
-#line 84
-    await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table14, "Then ");
+#line 95
+        await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table14, "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -436,8 +446,8 @@ namespace CucumberTesting.Features
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Both with same keywords", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 88
-  this.ScenarioInitialize(scenarioInfo);
+#line 101
+    this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -446,8 +456,8 @@ namespace CucumberTesting.Features
             else
             {
                 await this.ScenarioStartAsync();
-#line 89
-    await testRunner.GivenAsync("a note with the title \"Urgent task\" and the content \"This is a task\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line 102
+        await testRunner.GivenAsync("a note with the title \"Urgent task\" and the content \"This is a task\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
                 global::Reqnroll.Table table15 = new global::Reqnroll.Table(new string[] {
                             "Name",
@@ -461,16 +471,18 @@ namespace CucumberTesting.Features
                 table15.AddRow(new string[] {
                             "Meeting",
                             "meeting, discuss, review"});
-#line 90
-    await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table15, "And ");
+#line 103
+        await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table15, "And ");
 #line hidden
-#line 95
-    await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 108
+        await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
                 global::Reqnroll.Table table16 = new global::Reqnroll.Table(new string[] {
-                            "Task, Urgent"});
-#line 96
-    await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table16, "Then ");
+                            "Tags"});
+                table16.AddRow(new string[] {
+                            "Task"});
+#line 109
+        await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table16, "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -484,8 +496,8 @@ namespace CucumberTesting.Features
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Both with different keywords for same tag", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 100
-  this.ScenarioInitialize(scenarioInfo);
+#line 115
+    this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -494,8 +506,8 @@ namespace CucumberTesting.Features
             else
             {
                 await this.ScenarioStartAsync();
-#line 101
-    await testRunner.GivenAsync("a note with the title \"Meeting notes\" and the content \"Discuss and review\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line 116
+        await testRunner.GivenAsync("a note with the title \"Meeting notes\" and the content \"Discuss and review\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
                 global::Reqnroll.Table table17 = new global::Reqnroll.Table(new string[] {
                             "Name",
@@ -509,16 +521,18 @@ namespace CucumberTesting.Features
                 table17.AddRow(new string[] {
                             "Meeting",
                             "meeting, discuss, review"});
-#line 102
-    await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table17, "And ");
+#line 117
+        await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table17, "And ");
 #line hidden
-#line 107
-    await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 122
+        await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
                 global::Reqnroll.Table table18 = new global::Reqnroll.Table(new string[] {
+                            "Tags"});
+                table18.AddRow(new string[] {
                             "Meeting"});
-#line 108
-    await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table18, "Then ");
+#line 123
+        await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table18, "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -532,8 +546,8 @@ namespace CucumberTesting.Features
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Both with different keywords for different tags", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 112
-  this.ScenarioInitialize(scenarioInfo);
+#line 129
+    this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -542,8 +556,8 @@ namespace CucumberTesting.Features
             else
             {
                 await this.ScenarioStartAsync();
-#line 113
-    await testRunner.GivenAsync("a note with the title \"Urgent meeting\" and the content \"This is a task\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line 130
+        await testRunner.GivenAsync("a note with the title \"Urgent meeting\" and the content \"This is a task\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
                 global::Reqnroll.Table table19 = new global::Reqnroll.Table(new string[] {
                             "Name",
@@ -557,16 +571,20 @@ namespace CucumberTesting.Features
                 table19.AddRow(new string[] {
                             "Meeting",
                             "meeting, discuss, review"});
-#line 114
-    await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table19, "And ");
+#line 131
+        await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table19, "And ");
 #line hidden
-#line 119
-    await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 136
+        await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
                 global::Reqnroll.Table table20 = new global::Reqnroll.Table(new string[] {
-                            "Task, Urgent, Meeting"});
-#line 120
-    await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table20, "Then ");
+                            "Tags"});
+                table20.AddRow(new string[] {
+                            "Task"});
+                table20.AddRow(new string[] {
+                            "Meeting"});
+#line 137
+        await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table20, "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -580,8 +598,8 @@ namespace CucumberTesting.Features
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Content with keyword, title without", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 124
-  this.ScenarioInitialize(scenarioInfo);
+#line 144
+    this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -590,8 +608,8 @@ namespace CucumberTesting.Features
             else
             {
                 await this.ScenarioStartAsync();
-#line 125
-    await testRunner.GivenAsync("a note with the title \"Grocery Shopping\" and the content \"Buy milk, eggs, and bre" +
+#line 145
+        await testRunner.GivenAsync("a note with the title \"Grocery Shopping\" and the content \"Buy milk, eggs, and bre" +
                         "ad\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
                 global::Reqnroll.Table table21 = new global::Reqnroll.Table(new string[] {
@@ -606,16 +624,16 @@ namespace CucumberTesting.Features
                 table21.AddRow(new string[] {
                             "Meeting",
                             "meeting, discuss, review"});
-#line 126
-    await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table21, "And ");
+#line 146
+        await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table21, "And ");
 #line hidden
-#line 131
-    await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 151
+        await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
                 global::Reqnroll.Table table22 = new global::Reqnroll.Table(new string[] {
-                            "Task"});
-#line 132
-    await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table22, "Then ");
+                            ""});
+#line 152
+        await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table22, "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -629,8 +647,8 @@ namespace CucumberTesting.Features
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Both with keywords for different tags", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 136
-  this.ScenarioInitialize(scenarioInfo);
+#line 157
+    this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -639,8 +657,8 @@ namespace CucumberTesting.Features
             else
             {
                 await this.ScenarioStartAsync();
-#line 137
-    await testRunner.GivenAsync("a note with the title \"Team Meeting\" and the content \"Discuss progress and review" +
+#line 158
+        await testRunner.GivenAsync("a note with the title \"Team Meeting\" and the content \"Discuss progress and review" +
                         " tasks\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
                 global::Reqnroll.Table table23 = new global::Reqnroll.Table(new string[] {
@@ -655,16 +673,20 @@ namespace CucumberTesting.Features
                 table23.AddRow(new string[] {
                             "Meeting",
                             "meeting, discuss, review"});
-#line 138
-    await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table23, "And ");
+#line 159
+        await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table23, "And ");
 #line hidden
-#line 143
-    await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 164
+        await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
                 global::Reqnroll.Table table24 = new global::Reqnroll.Table(new string[] {
-                            "Task, Meeting"});
-#line 144
-    await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table24, "Then ");
+                            "Tags"});
+                table24.AddRow(new string[] {
+                            "Task"});
+                table24.AddRow(new string[] {
+                            "Meeting"});
+#line 165
+        await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table24, "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -678,8 +700,8 @@ namespace CucumberTesting.Features
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("No keywords in title or content", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 148
-  this.ScenarioInitialize(scenarioInfo);
+#line 172
+    this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -688,8 +710,8 @@ namespace CucumberTesting.Features
             else
             {
                 await this.ScenarioStartAsync();
-#line 149
-    await testRunner.GivenAsync("a note with the title \"Vacation Photos\" and the content \"Pictures from my trip to" +
+#line 173
+        await testRunner.GivenAsync("a note with the title \"Vacation Photos\" and the content \"Pictures from my trip to" +
                         " Hawaii\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
                 global::Reqnroll.Table table25 = new global::Reqnroll.Table(new string[] {
@@ -704,16 +726,16 @@ namespace CucumberTesting.Features
                 table25.AddRow(new string[] {
                             "Meeting",
                             "meeting, discuss, review"});
-#line 150
-    await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table25, "And ");
+#line 174
+        await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table25, "And ");
 #line hidden
-#line 155
-    await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 179
+        await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
                 global::Reqnroll.Table table26 = new global::Reqnroll.Table(new string[] {
                             ""});
-#line 156
-    await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table26, "Then ");
+#line 180
+        await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table26, "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -727,8 +749,8 @@ namespace CucumberTesting.Features
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Case-insensitive keyword matching", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 160
-  this.ScenarioInitialize(scenarioInfo);
+#line 185
+    this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -737,8 +759,8 @@ namespace CucumberTesting.Features
             else
             {
                 await this.ScenarioStartAsync();
-#line 161
-    await testRunner.GivenAsync("a note with the title \"This is a TASK\" and the content \"Very IMPORTANT indeed\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line 186
+        await testRunner.GivenAsync("a note with the title \"This is a TASK\" and the content \"Very IMPORTANT indeed\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
                 global::Reqnroll.Table table27 = new global::Reqnroll.Table(new string[] {
                             "Name",
@@ -752,16 +774,20 @@ namespace CucumberTesting.Features
                 table27.AddRow(new string[] {
                             "Meeting",
                             "meeting, discuss, review"});
-#line 162
-    await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table27, "And ");
+#line 187
+        await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table27, "And ");
 #line hidden
-#line 167
-    await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 192
+        await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
                 global::Reqnroll.Table table28 = new global::Reqnroll.Table(new string[] {
-                            "Task, Urgent"});
-#line 168
-    await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table28, "Then ");
+                            "Tags"});
+                table28.AddRow(new string[] {
+                            "Task"});
+                table28.AddRow(new string[] {
+                            "Urgent"});
+#line 193
+        await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table28, "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -775,8 +801,8 @@ namespace CucumberTesting.Features
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Mixed case keywords", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 172
-  this.ScenarioInitialize(scenarioInfo);
+#line 200
+    this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -785,8 +811,8 @@ namespace CucumberTesting.Features
             else
             {
                 await this.ScenarioStartAsync();
-#line 173
-    await testRunner.GivenAsync("a note with the title \"urgent TASK\" and the content \"ASAP work\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line 201
+        await testRunner.GivenAsync("a note with the title \"urgent TASK\" and the content \"ASAP work\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
                 global::Reqnroll.Table table29 = new global::Reqnroll.Table(new string[] {
                             "Name",
@@ -800,16 +826,20 @@ namespace CucumberTesting.Features
                 table29.AddRow(new string[] {
                             "Meeting",
                             "meeting, discuss, review"});
-#line 174
-    await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table29, "And ");
+#line 202
+        await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table29, "And ");
 #line hidden
-#line 179
-    await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 207
+        await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
                 global::Reqnroll.Table table30 = new global::Reqnroll.Table(new string[] {
-                            "Task, Urgent"});
-#line 180
-    await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table30, "Then ");
+                            "Tags"});
+                table30.AddRow(new string[] {
+                            "Task"});
+                table30.AddRow(new string[] {
+                            "Urgent"});
+#line 208
+        await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table30, "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -823,8 +853,8 @@ namespace CucumberTesting.Features
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Synonym keywords", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 184
-  this.ScenarioInitialize(scenarioInfo);
+#line 215
+    this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -833,8 +863,8 @@ namespace CucumberTesting.Features
             else
             {
                 await this.ScenarioStartAsync();
-#line 185
-    await testRunner.GivenAsync("a note with the title \"Review meeting\" and the content \"Discuss project\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line 216
+        await testRunner.GivenAsync("a note with the title \"Review meeting\" and the content \"Discuss project\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
                 global::Reqnroll.Table table31 = new global::Reqnroll.Table(new string[] {
                             "Name",
@@ -848,16 +878,18 @@ namespace CucumberTesting.Features
                 table31.AddRow(new string[] {
                             "Meeting",
                             "meeting, discuss, review"});
-#line 186
-    await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table31, "And ");
+#line 217
+        await testRunner.AndAsync("the following tags exist in the repository:", ((string)(null)), table31, "And ");
 #line hidden
-#line 191
-    await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 222
+        await testRunner.WhenAsync("the note is tagged", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
                 global::Reqnroll.Table table32 = new global::Reqnroll.Table(new string[] {
+                            "Tags"});
+                table32.AddRow(new string[] {
                             "Meeting"});
-#line 192
-    await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table32, "Then ");
+#line 223
+        await testRunner.ThenAsync("the note should have the following tags:", ((string)(null)), table32, "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
