@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D1F852E0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTesting", "Tests\UnitTesting\UnitTesting.csproj", "{05649674-8059-4C9B-A65C-D51152FD1648}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReqnrollTesting", "Tests\ReqnrollTesting\ReqnrollTesting.csproj", "{4F669537-F837-4562-98FF-6003F78940ED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CucumberTesting", "Tests\CucumberTesting\CucumberTesting.csproj", "{1AB46509-1D69-43D8-B16F-C993FE987412}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{05649674-8059-4C9B-A65C-D51152FD1648}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05649674-8059-4C9B-A65C-D51152FD1648}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05649674-8059-4C9B-A65C-D51152FD1648}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4F669537-F837-4562-98FF-6003F78940ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4F669537-F837-4562-98FF-6003F78940ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4F669537-F837-4562-98FF-6003F78940ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4F669537-F837-4562-98FF-6003F78940ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AB46509-1D69-43D8-B16F-C993FE987412}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AB46509-1D69-43D8-B16F-C993FE987412}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AB46509-1D69-43D8-B16F-C993FE987412}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AB46509-1D69-43D8-B16F-C993FE987412}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -40,6 +40,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{2E98F396-C30E-4E95-BE4F-D2521CC612E7} = {3391D529-4316-44D2-A352-99F36A1E6B99}
 		{05649674-8059-4C9B-A65C-D51152FD1648} = {D1F852E0-28DD-4D2E-BC8A-BF5D952CDCFA}
-		{4F669537-F837-4562-98FF-6003F78940ED} = {D1F852E0-28DD-4D2E-BC8A-BF5D952CDCFA}
+		{1AB46509-1D69-43D8-B16F-C993FE987412} = {D1F852E0-28DD-4D2E-BC8A-BF5D952CDCFA}
 	EndGlobalSection
 EndGlobal
