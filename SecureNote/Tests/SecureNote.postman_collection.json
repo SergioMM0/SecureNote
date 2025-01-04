@@ -1,0 +1,522 @@
+{
+	"info": {
+		"_postman_id": "12d9a49d-e782-47d6-9275-f51cf9775ad6",
+		"name": "SecureNote",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23086914",
+		"_collection_link": "https://www.postman.com/warped-station-101632/workspace/easv/collection/23086914-12d9a49d-e782-47d6-9275-f51cf9775ad6?action=share&source=collection_link&creator=23086914"
+	},
+	"item": [
+		{
+			"name": "Notes",
+			"item": [
+				{
+					"name": "Get All Notes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is in the expected format\", function () {",
+									"    pm.response.to.have.jsonBody();",
+									"    let responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.be.an(\"array\");",
+									"});",
+									"",
+									"// Test for 500 Internal Server Error",
+									"pm.test(\"Internal server error should have proper error message\", function () {",
+									"    if (pm.response.status === 500) {",
+									"        let responseJson = pm.response.json();",
+									"        pm.expect(responseJson).to.have.property(\"message\").that.is.a(\"string\");",
+									"    }",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Note",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Note"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Note By ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test: For 200 OK, ensure the response body contains valid NoteDto data",
+									"pm.test(\"Valid NoteDto response for 200 OK\", function () {",
+									"    if (pm.response.status === 200) {",
+									"        let responseJson = pm.response.json();",
+									"        pm.expect(responseJson).to.have.property(\"id\");",
+									"        pm.expect(responseJson).to.have.property(\"content\"); // Assuming content exists in NoteDto",
+									"        pm.expect(responseJson).to.have.property(\"userId\");",
+									"        //pm.expect(responseJson.userId).to.eql(pm.environment.get(\"user_id\")); // Check if the response userId matches the authenticated user",
+									"    }",
+									"});",
+									"",
+									"// Test: For 401 Unauthorized, verify the response is as expected",
+									"pm.test(\"Unauthorized response if no user is authenticated\", function () {",
+									"    if (pm.response.status === 401) {",
+									"        let responseJson = pm.response.json();",
+									"        pm.expect(responseJson).to.have.property(\"message\").that.is.a(\"string\");",
+									"    }",
+									"});",
+									"",
+									"// Test: For 404 Not Found, ensure the note does not exist or the user is unauthorized to access it",
+									"pm.test(\"404 Not Found if the note is not found or user does not have access\", function () {",
+									"    if (pm.response.status === 404) {",
+									"        let responseJson = pm.response.json();",
+									"        pm.expect(responseJson).to.have.property(\"message\").that.is.a(\"string\");",
+									"    }",
+									"});",
+									"",
+									"// Test: For 500 Internal Server Error, check if the error message is returned in the response",
+									"pm.test(\"500 Internal Server Error should include a message\", function () {",
+									"    if (pm.response.status === 500) {",
+									"        let responseJson = pm.response.json();",
+									"        pm.expect(responseJson).to.have.property(\"message\").that.is.a(\"string\");",
+									"    }",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Note/{{noteId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Note",
+								"{{noteId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Note",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response has the expected structure\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"id\");",
+									"    pm.expect(jsonData).to.have.property(\"title\");",
+									"    pm.expect(jsonData).to.have.property(\"content\");",
+									"",
+									"    // Set the noteId dynamically from the response for other tests",
+									"    pm.environment.set(\"noteId\", jsonData.id);",
+									"    console.log(\"noteId set to:\", jsonData.id);",
+									"});",
+									"",
+									"pm.test(\"Content-Type is application/json\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Note",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Note"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Note",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Check for successful response",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Validate the response structure",
+									"pm.test(\"Response contains updated note\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"id\");",
+									"    pm.expect(jsonData).to.have.property(\"title\");",
+									"    pm.expect(jsonData).to.have.property(\"content\");",
+									"    pm.expect(jsonData).to.have.property(\"nsfw\");",
+									"",
+									"    // Ensure returned fields match the request",
+									"    pm.expect(jsonData.id).to.equal(pm.environment.get(\"noteId\"));",
+									"    pm.expect(jsonData.title).to.equal(\"Updated Note Title\");",
+									"    pm.expect(jsonData.content).to.equal(\"This is an updated note content.\");",
+									"    pm.expect(jsonData.nsfw).to.equal(false);",
+									"});",
+									"",
+									"// Handle unexpected errors",
+									"pm.test(\"No unexpected errors\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).not.to.have.property(\"error\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"{{noteId}}\",\n    \"title\": \"Updated Note Title\",\n    \"content\": \"This is an updated note content.\",\n    \"nsfw\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Note/{{noteId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Note",
+								"{{noteId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Note",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204 (No Content)\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									"",
+									"pm.test(\"Response does not have a body\", function () {",
+									"    pm.expect(pm.response.text()).to.be.empty;",
+									"});",
+									"",
+									"// Additional test for 404 (if applicable, you can create separate scenarios for this)",
+									"pm.test(\"Handle 404 Not Found gracefully\", function () {",
+									"    if (pm.response.status === 404) {",
+									"        pm.expect(pm.response.json().message).to.include(\"Not Found\");",
+									"    }",
+									"});",
+									"",
+									"// Test for server errors (500 Internal Server Error)",
+									"pm.test(\"Check for server error\", function () {",
+									"    pm.expect(pm.response.status).to.not.equal(500, \"Unexpected server error!\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Note/{{noteId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Note",
+								"{{noteId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"const responseData = pm.response.json();",
+									"",
+									"// Assert that the response contains the token",
+									"pm.test(\"Token is present\", function () {",
+									"    pm.expect(responseData).to.have.property('token');",
+									"    pm.environment.set('token', responseData.token);",
+									"});",
+									"",
+									"// Assert that the response email matches the email environment variable",
+									"pm.test(\"Email matches environment variable\", function () {",
+									"    pm.expect(responseData.email).to.eql(pm.environment.get(\"email\"));",
+									"});",
+									"",
+									"// Assert that the response username matches the username environment variable",
+									"pm.test(\"Username matches environment variable\", function () {",
+									"    pm.expect(responseData.username).to.eql(pm.environment.get(\"username\"));",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Generate a unique identifier for the email",
+									"const randomString = Math.random().toString(36).substring(2, 8); // Random 6-character string",
+									"const uniqueEmail = `test_${randomString}@email.com`;",
+									"",
+									"// Generate a random username",
+									"const uniqueUsername = `TestUser_${randomString}`;",
+									"",
+									"// Generate a random password",
+									"const uniquePassword = `TestPass_${Math.floor(1000 + Math.random() * 9000)}!`;",
+									"",
+									"// Set these values dynamically in environment variables",
+									"pm.environment.set(\"email\", uniqueEmail);",
+									"pm.environment.set(\"username\", uniqueUsername);",
+									"pm.environment.set(\"password\", uniquePassword);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{email}}\",\n    \"username\": \"{{username}}\",\n    \"password\": \"{{password}}\"\n}\n"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Auth/Register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Auth",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"const responseData = pm.response.json();",
+									"",
+									"pm.test(\"Token is present\", function () {",
+									"    pm.expect(responseData).to.have.property('token');",
+									"    pm.environment.set('token', responseData.token);",
+									"});",
+									"",
+									"// Assert that the response email matches the email environment variable",
+									"pm.test(\"Email matches environment variable\", function () {",
+									"    pm.expect(responseData.email).to.eql(pm.environment.get(\"email\"));",
+									"});",
+									"",
+									"// Assert that the response username matches the username environment variable",
+									"pm.test(\"Username matches environment variable\", function () {",
+									"    pm.expect(responseData.username).to.eql(pm.environment.get(\"username\"));",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"if (!pm.environment.get(\"email\") || !pm.environment.get(\"password\")) {",
+									"    throw new Error(\"Email or password is not set. Ensure you have run the Registration request first.\");",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{email}}\",\n    \"password\": \"{{password}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Auth/Login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Auth",
+								"Login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:5000"
+		},
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "noteId",
+			"value": ""
+		}
+	]
+}

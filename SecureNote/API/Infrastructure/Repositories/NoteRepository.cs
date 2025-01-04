@@ -1,13 +1,14 @@
-﻿using API.Application.Interfaces.Repositories;
+﻿using API.Application.Interfaces;
+using API.Application.Interfaces.Repositories;
 using API.Core.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Infrastructure.Repositories;
 
 public class NoteRepository : INoteRepository {
-    private readonly AppDbContext _db;
+    private readonly IAppDbContext _db;
     
-    public NoteRepository(AppDbContext appDbContext) {
+    public NoteRepository(IAppDbContext appDbContext) {
         _db = appDbContext;
     }
 
