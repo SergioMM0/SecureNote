@@ -10,6 +10,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{2E98F396-C30E-4E95-BE4F-D2521CC612E7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D1F852E0-28DD-4D2E-BC8A-BF5D952CDCFA}"
+	ProjectSection(SolutionItems) = preProject
+		Tests\SecureNote.postman_collection.json = Tests\SecureNote.postman_collection.json
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTesting", "Tests\UnitTesting\UnitTesting.csproj", "{05649674-8059-4C9B-A65C-D51152FD1648}"
 EndProject
